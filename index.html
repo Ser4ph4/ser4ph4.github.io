@@ -1,10 +1,121 @@
 <!DOCTYPE html>
-<html>
-<body>
-  <link rel="icon" type="image/x-icon" href="https://pub-cc79f915e3d84c13aa11e36fc28fa15f.r2.dev/images/favicon.gif">
-  <title>~Themes for UNIT3D!</title>
-<center><h1>👽Hello World</h1></center>
-<center><p>I'm hosted with GitHub Pages.</p></center>
-  <div align=center><a href='https://www.counter12.com'><img src='https://www.counter12.com/img-0980029Aaw13ZB83-8.gif' border='0' alt='web counter free'></a><script type='text/javascript' src='https://www.counter12.com/ad.js?id=0980029Aaw13ZB83'></script></div>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Tema Simples - Nord Dark</title>
+    <!-- Inclui o CDN do Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configurações do Tailwind CSS para usar a fonte Inter e cores Nord personalizadas -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Cores Nord Theme
+                        nordBgPrimary: '#2E3440', // Polar Night (Fundo principal)
+                        nordBgSecondary: '#3B4252', // Polar Night (Fundo secundário/elementos)
+                        nordTextPrimary: '#D8DEE9', // Snow Storm (Texto principal)
+                        nordTextSecondary: '#E5E9F0', // Snow Storm (Texto secundário)
+                        nordAccent: '#88C0D0', // Frost (Links e destaques)
+                        nordBorder: '#4C566A', // Polar Night (Bordas e divisores)
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Estilos globais para a fonte e cores de fundo/texto -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: theme('colors.nordTextPrimary'); /* Cor do texto principal (claro) */
+            background-color: theme('colors.nordBgPrimary'); /* Cor de fundo principal (escuro) */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+    <!-- Cabeçalho -->
+    <header class="bg-nordBgSecondary shadow-lg p-4 md:p-6 border-b border-nordBorder rounded-b-lg">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <!-- Título do site/Logo com ícone hacker -->
+            <a href="#" class="text-2xl font-bold text-nordTextPrimary hover:text-nordAccent transition-colors duration-200 flex items-center space-x-2">
+                <!-- Ícone estilizado de código -->
+                <span class="text-3xl text-nordAccent">
+                    &lt;/&gt;
+                </span>
+                <!-- Nome do Site/Logo -->
+                <span>HackerLog</span>
+            </a>
+            <!-- Navegação -->
+            <nav>
+                <ul class="flex space-x-6 text-lg">
+                    <li>
+                        <a href="#" class="text-nordTextSecondary hover:text-nordAccent transition-colors duration-200 font-medium">Início</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-nordTextSecondary hover:text-nordAccent transition-colors duration-200 font-medium">Sobre</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-nordTextSecondary hover:text-nordAccent transition-colors duration-200 font-medium">Projetos</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-nordTextSecondary hover:text-nordAccent transition-colors duration-200 font-medium">Contato</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-grow max-w-4xl mx-auto p-4 md:p-8 py-12">
+        <section class="mb-12 bg-nordBgSecondary p-6 rounded-lg shadow-md">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-nordTextPrimary mb-6 leading-tight">
+                Bem-vindo ao Meu Espaço Online.
+            </h1>
+            <p class="text-lg md:text-xl text-nordTextSecondary leading-relaxed mb-4">
+                Este é um exemplo de tema HTML e CSS projetado para ter uma aparência limpa e minimalista, inspirado em sites com foco em conteúdo e simplicidade. A tipografia é o ponto central aqui.
+            </p>
+            <p class="text-lg md:text-xl text-nordTextSecondary leading-relaxed">
+                Aproveite para explorar o conteúdo, que é sempre direto e sem distrações. A navegação é intuitiva e o design se adapta bem a diferentes tamanhos de tela.
+            </p>
+        </section>
+
+        <section class="mb-12 p-6 rounded-lg">
+            <h2 class="text-3xl md:text-4xl font-bold text-nordTextPrimary mb-5">
+                Sobre este Design
+            </h2>
+            <p class="text-md md:text-lg text-nordTextSecondary leading-relaxed mb-3">
+                Este layout utiliza o Tailwind CSS para um desenvolvimento rápido e um design responsivo. Ele é construído com componentes simples e reutilizáveis, garantindo uma experiência de usuário consistente em todos os dispositivos. As cores Nord foram escolhidas para serem suaves e fáceis de ler, com foco na acessibilidade em um tema escuro.
+            </p>
+            <p class="text-md md:text-lg text-nordTextSecondary leading-relaxed">
+                Elementos como espaçamento, tamanho da fonte e contraste de cores foram cuidadosamente considerados para criar uma hierarquia visual clara e melhorar a legibilidade do texto.
+            </p>
+        </section>
+
+        <section class="mb-12 p-6 rounded-lg">
+            <h2 class="text-3xl md:text-4xl font-bold text-nordTextPrimary mb-5">
+                Exemplo de Listagem
+            </h2>
+            <ul class="list-disc list-inside text-md md:text-lg text-nordTextSecondary space-y-2">
+                <li>Design Minimalista e Limpo (Tema Nord)</li>
+                <li>Foco em Tipografia Legível em Fundo Escuro</li>
+                <li>Responsivo para Mobile e Desktop</li>
+                <li>Uso de Cores Suaves e Neutras (Paleta Nord)</li>
+                <li>Navegação Simples e Direta</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-nordBgSecondary text-nordTextPrimary p-4 md:p-6 text-center mt-auto border-t border-nordBorder rounded-t-lg">
+        <div class="max-w-4xl mx-auto text-sm md:text-base">
+            &copy; 2025 HackerLog. Todos os direitos reservados.
+        </div>
+    </footer>
 </body>
 </html>
+
+  
