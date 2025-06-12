@@ -277,3 +277,40 @@ footer {
         font-size: 1.5em;
     }
 }
+
+/* Estilos para os botões de contato */
+.social-links {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os botões quebrem a linha */
+    justify-content: center;
+    gap: 15px; /* Espaçamento entre os botões */
+    margin-top: 10px; /* Margem acima dos botões */
+}
+
+.social-links a {
+    display: inline-flex; /* Permite alinhamento vertical do texto e ícone */
+    align-items: center; /* Centraliza o texto e ícone */
+    gap: 8px; /* Espaçamento entre o ícone e o texto */
+    background-color: rgba(0, 255, 0, 0.1); /* Fundo levemente transparente */
+    color: #00ff00; /* Cor do texto do botão */
+    border: 1px solid #00ff00; /* Borda do botão */
+    padding: 10px 20px; /* Preenchimento interno do botão */
+    border-radius: 5px; /* Cantos arredondados */
+    text-decoration: none; /* Remove sublinhado */
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5); /* Sombra de texto suave */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Transições suaves */
+}
+
+.social-links a:hover {
+    background-color: rgba(0, 255, 0, 0.2); /* Fundo mais escuro no hover */
+    transform: translateY(-2px); /* Pequeno movimento para cima */
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.8); /* Brilho maior no hover */
+}
+
+/* Responsividade para os links sociais */
+@media (max-width: 768px) {
+    .social-links {
+        flex-direction: column; /* Botões empilhados em telas pequenas */
+    }
+}
