@@ -63,11 +63,12 @@ header {
 nav {
     background-color: rgba(0, 255, 0, 0.05); /* Fundo verde quase transparente para o menu */
     border-radius: 8px; /* Cantos arredondados para o fundo do menu */
-    padding: 5px 15px; /* Preenchimento para o fundo transparente */
+    padding: 0px 0px; /* Preenchimento para o fundo transparente */
     width: fit-content; /* Ajusta a largura ao conteúdo */
-    margin: 0 auto; /* Centraliza o fundo transparente do menu */
+    margin: 0px auto; /* Centraliza o fundo transparente do menu */
     position: relative; /* Necessário para z-index */
     z-index: 1; /* Garante que o menu fique acima do canvas */
+    border: 2px solid #161b22;
 }
 
 nav ul {
