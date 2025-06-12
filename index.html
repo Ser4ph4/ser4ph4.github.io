@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Tema Simples - Nord Dark</title>
+    <title>Ser4ph4</title>
     <!-- Inclui o CDN do Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Inclui a fonte 'Roboto' do Google Fonts -->
@@ -14,19 +14,25 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        // Define 'sans' como a nova família de fontes principal para usar Roboto
                         sans: ['Roboto', 'sans-serif'],
                     },
                     colors: {
-                        // Cores Nord Theme
-                        nordBgPrimary: '#2E3440', // Polar Night (Fundo principal)
-                        nordBgSecondary: '#3B4252', // Polar Night (Fundo secundário/elementos)
-                        nordTextPrimary: '#D8DEE9', // Snow Storm (Texto principal)
-                        // A cor nordTextSecondary foi ajustada para ser a mesma de nordTextPrimary,
-                        // tornando-a menos "branca" e mais consistente com o Nord4.
-                        nordTextSecondary: '#D8DEE9', // Snow Storm (Texto secundário - ajustado)
-                        nordAccent: '#88C0D0', // Frost (Links e destaques)
-                        nordBorder: '#4C566A', // Polar Night (Bordas e divisores)
+                        // Cores Nord Theme - Modo Escuro (Dark)
+                        nordDarkBgPrimary: '#2E3440', // Polar Night (Fundo principal)
+                        nordDarkBgSecondary: '#3B4252', // Polar Night (Fundo secundário/elementos)
+                        nordDarkTextPrimary: '#D8DEE9', // Snow Storm (Texto principal)
+                        nordDarkTextSecondary: '#D8DEE9', // Snow Storm (Texto secundário - ajustado)
+                        nordDarkBorder: '#4C566A', // Polar Night (Bordas e divisores)
+
+                        // Cores Nord Theme - Modo Claro (Light)
+                        nordLightBgPrimary: '#ECEFF4', // Snow Storm (Fundo principal)
+                        nordLightBgSecondary: '#E5E9F0', // Snow Storm (Fundo secundário/elementos)
+                        nordLightTextPrimary: '#2E3440', // Polar Night (Texto principal)
+                        nordLightTextSecondary: '#3B4252', // Polar Night (Texto secundário)
+                        nordLightBorder: '#D8DEE9', // Snow Storm (Bordas e divisores)
+
+                        // Cor de Destaque (Accent) - Compartilhada entre os temas
+                        nordAccent: '#88C0D0', // Frost
                     }
                 }
             }
@@ -35,16 +41,53 @@
     <!-- Estilos globais para a fonte e cores de fundo/texto -->
     <style>
         body {
-            font-family: 'Roboto', sans-serif; /* Aplica a fonte Roboto ao corpo */
-            color: theme('colors.nordTextPrimary'); /* Cor do texto principal (claro) */
-            background-color: theme('colors.nordBgPrimary'); /* Cor de fundo principal (escuro) */
+            font-family: 'Roboto', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave para mudança de tema */
         }
-        /* Os ajustes de tamanho de fonte específicos para VT323 foram removidos,
-           pois Roboto se comporta de forma diferente e as classes padrão do Tailwind
-           são geralmente suficientes. */
+
+        /* Define as variáveis CSS para o tema DARK */
+        :root[data-theme='dark'] {
+            --bg-primary: theme('colors.nordDarkBgPrimary');
+            --bg-secondary: theme('colors.nordDarkBgSecondary');
+            --text-primary: theme('colors.nordDarkTextPrimary');
+            --text-secondary: theme('colors.nordDarkTextSecondary');
+            --border-color: theme('colors.nordDarkBorder');
+            --accent-color: theme('colors.nordAccent');
+        }
+
+        /* Define as variáveis CSS para o tema LIGHT */
+        :root[data-theme='light'] {
+            --bg-primary: theme('colors.nordLightBgPrimary');
+            --bg-secondary: theme('colors.nordLightBgSecondary');
+            --text-primary: theme('colors.nordLightTextPrimary');
+            --text-secondary: theme('colors.nordLightTextSecondary');
+            --border-color: theme('colors.nordLightBorder');
+            --accent-color: theme('colors.nordAccent');
+        }
+
+        /* Aplica as variáveis CSS usando as classes do Tailwind que serão substituídas */
+        /* Estas classes são usadas em todo o HTML para permitir a troca de tema dinâmica */
+        .bg-nordBgPrimary { background-color: var(--bg-primary); }
+        .bg-nordBgSecondary { background-color: var(--bg-secondary); }
+        .text-nordTextPrimary { color: var(--text-primary); }
+        .text-nordTextSecondary { color: var(--text-secondary); }
+        .border-nordBorder { border-color: var(--border-color); }
+        .hover\:text-nordAccent:hover { color: var(--accent-color); }
+        .text-nordAccent { color: var(--accent-color); }
+        .hover\:bg-nordBorder:hover { background-color: var(--border-color); }
+
+
+        /* Ajustes de tamanho de fonte para melhor legibilidade com Roboto */
+        .text-2xl { font-size: 1.8rem; }
+        .text-3xl { font-size: 2.2rem; }
+        .text-lg { font-size: 1.15rem; }
+        .text-md { font-size: 1.05rem; }
+        .text-sm { font-size: 0.9rem; }
+        .text-4xl { font-size: 2.8rem; }
+        .text-5xl { font-size: 3.5rem; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen flex flex-col antialiased" data-theme="dark">
     <!-- Cabeçalho -->
     <header class="bg-nordBgSecondary shadow-lg p-4 md:p-6 border-b border-nordBorder rounded-b-lg">
         <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
@@ -55,25 +98,35 @@
                     &lt;/&gt;
                 </span>
                 <!-- Nome do Site/Logo com ID para o efeito -->
-                <span id="hackerLogText">HackerLog</span>
+                <span id="hackerLogText">Ser4ph4</span>
             </a>
-            <!-- Navegação -->
-            <nav class="md:bg-nordBgPrimary md:p-2 md:rounded-lg md:border md:border-nordBorder">
-                <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-lg">
-                    <li>
-                        <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Início</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Sobre</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Projetos</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Contato</a>
-                    </li>
-                </ul>
-            </nav>
+            <!-- Navegação e Botão de Tema -->
+            <div class="flex items-center space-x-4">
+                <nav class="md:bg-nordBgPrimary md:p-2 md:rounded-lg md:border md:border-nordBorder">
+                    <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-lg">
+                        <li>
+                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Início</a>
+                        </li>
+                        <li>
+                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Sobre</a>
+                        </li>
+                        <li>
+                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Projetos</a>
+                        </li>
+                        <li>
+                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Contato</a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Botão de Alternar Tema -->
+                <button id="themeToggleButton" class="p-2 rounded-full bg-nordBgPrimary text-nordTextPrimary hover:bg-nordBorder focus:outline-none focus:ring-2 focus:ring-nordAccent transition-colors duration-200">
+                    <!-- Ícone de Sol/Lua (SVG) -->
+                    <svg id="themeIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <!-- Path será preenchido pelo JavaScript -->
+                        <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.746 7.746a.75.75 0 01-.01.995l-1.625 1.625a.75.75 0 01-1.06-1.06l1.625-1.625a.75.75 0 01.995-.01zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM7.746 16.254a.75.75 0 01.995.01l1.625 1.625a.75.75 0 01-1.06 1.06l-1.625-1.625a.75.75 0 01.01-.995zM12 17.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V18a.75.75 0 01.75-.75zM16.254 7.746a.75.75 0 011.06-.01l1.625 1.625a.75.75 0 01-1.06 1.06l-1.625-1.625a.75.75 0 01-.01-.995zM17.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H18a.75.75 0 01-.75-.75zM16.254 16.254a.75.75 0 01.01-1.06l1.625-1.625a.75.75 0 011.06 1.06l-1.625 1.625a.75.75 0 01-1.06-.01zM12 7a5 5 0 100 10 5 5 0 000-10z"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -139,6 +192,11 @@
 
             localStorage.setItem('page_visits', visits);
             visitCountElement.innerText = visits;
+
+            // Inicializa o tema e o listener do botão
+            const themeToggleButton = document.getElementById('themeToggleButton');
+            themeToggleButton.addEventListener('click', toggleTheme);
+            loadTheme();
         });
 
         // Obtenha o elemento do texto do logo
@@ -159,9 +217,12 @@
             let revealInterval = null; // Intervalo para revelar os caracteres um por um
 
             // Limpa qualquer intervalo anterior para evitar múltiplas execuções
-            if (hackerLogText.dataset.interval) {
+            if (hackerLogText && hackerLogText.dataset.interval) {
                 clearInterval(parseInt(hackerLogText.dataset.interval));
             }
+
+            // Garante que o elemento existe antes de tentar animar
+            if (!hackerLogText) return;
 
             // Inicia o intervalo de revelação
             revealInterval = setInterval(() => {
@@ -193,7 +254,83 @@
             hackerLogText.dataset.interval = revealInterval;
         }
 
-        // Chama a função para iniciar a animação quando a página carrega
+        // --- Lógica de Tema Dark/Light ---
+        const themeIcon = document.getElementById('themeIcon');
+        // SVG paths para os ícones de Sol e Lua
+        const sunIconPath = "M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.746 7.746a.75.75 0 01-.01.995l-1.625 1.625a.75.75 0 01-1.06-1.06l1.625-1.625a.75.75 0 01.995-.01zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM7.746 16.254a.75.75 0 01.995.01l1.625 1.625a.75.75 0 01-1.06 1.06l-1.625-1.625a.75.75 0 01.01-.995zM12 17.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V18a.75.75 0 01.75-.75zM16.254 7.746a.75.75 0 011.06-.01l1.625 1.625a.75.75 0 01-1.06 1.06l-1.625-1.625a.75.75 0 01-.01-.995zM17.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H18a.75.75 0 01-.75-.75zM16.254 16.254a.75.75 0 01.01-1.06l1.625-1.625a.75.75 0 011.06 1.06l-1.625 1.625a.75.75 0 01-1.06-.01zM12 7a5 5 0 100 10 5 5 0 000-10z";
+        const moonIconPath = "M9.59 2.25a.75.75 0 01.787-.134l2.214.738a.75.75 0 00.993-.016l2.124-2.124a.75.75 0 011.06 1.06l-2.124 2.124a.75.75 0 00.016.993l.738 2.214a.75.75 0 01-.134.787l-.995.995a.75.75 0 00-.01.995l.738 2.214a.75.75 0 01-.134.787l-2.214.738a.75.75 0 00-.993.016l-2.124 2.124a.75.75 0 01-1.06-1.06l2.124-2.124a.75.75 0 00-.016-.993l-.738-2.214a.75.75 0 01.134-.787l.995-.995a.75.75 0 00.01-.995l-.738-2.214a.75.75 0 01.134-.787l2.214-.738a.75.75 0 00.993-.016l2.124-2.124a.75.75 0 011.06 1.06l-2.124 2.124a.75.75 0 00-.016.993l-.738 2.214a.75.75 0 01-.134.787l.995.995a.75.75 0 00.01.995l-.738 2.214a.75.75 0 01-.134.787L9.59 2.25zM12 7a5 5 0 100 10 5 5 0 000-10z";
+
+        function applyTheme(theme) {
+            // Define o atributo 'data-theme' no elemento <html> para que o CSS reaja
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme); // Salva a preferência no localStorage
+
+            // Atualiza o ícone do botão com base no tema
+            if (themeIcon) { // Garante que o ícone existe
+                if (theme === 'dark') {
+                    themeIcon.setAttribute('d', sunIconPath); // Ícone de Sol para modo escuro (sugere mudar para claro)
+                } else {
+                    themeIcon.setAttribute('d', moonIconPath); // Ícone de Lua para modo claro (sugere mudar para escuro)
+                }
+            }
+
+            // Atualiza as classes do body diretamente para aplicar as cores do tema
+            const body = document.body;
+            const elementsToUpdate = [
+                { selector: 'body', bgVar: 'bg-primary', textVar: 'text-primary' },
+                { selector: 'header', bgVar: 'bg-secondary', textVar: 'text-primary', borderVar: 'border-color' },
+                { selector: 'main section:nth-of-type(1)', bgVar: 'bg-secondary', textVar: 'text-primary', shadow: true }, // Seção "Bem-vindo"
+                // A navegação md:bg-nordBgPrimary vai reagir ao var(--bg-primary)
+                { selector: 'footer', bgVar: 'bg-secondary', textVar: 'text-primary', borderVar: 'border-color' },
+                { selector: '.text-nordTextSecondary', textVar: 'text-secondary' }, // Para elementos com texto secundário
+                { selector: '.bg-nordBgPrimary', bgVar: 'bg-primary' }, // Para o menu (no desktop) e o botão
+                { selector: '.hover\\:bg-nordBorder:hover', borderVar: 'border-color' }, // Ajusta o hover da borda
+                { selector: '.text-nordAccent', textVar: 'accent-color' }, // Ajusta a cor de destaque
+                { selector: '.hover\\:text-nordAccent:hover', textVar: 'accent-color' } // Ajusta o hover do destaque
+            ];
+
+            // Percorre os elementos e aplica as classes dinamicamente
+            elementsToUpdate.forEach(item => {
+                const elements = document.querySelectorAll(item.selector);
+                elements.forEach(el => {
+                    // Remove classes de tema anteriores
+                    el.classList.remove(
+                        'bg-nordDarkBgPrimary', 'bg-nordDarkBgSecondary', 'text-nordDarkTextPrimary', 'text-nordDarkTextSecondary', 'border-nordDarkBorder',
+                        'bg-nordLightBgPrimary', 'bg-nordLightBgSecondary', 'text-nordLightTextPrimary', 'text-nordLightTextSecondary', 'border-nordLightBorder'
+                    );
+
+                    // Adiciona as classes do tema atual
+                    if (theme === 'dark') {
+                        if (item.bgVar === 'bg-primary') el.classList.add('bg-nordDarkBgPrimary');
+                        if (item.bgVar === 'bg-secondary') el.classList.add('bg-nordDarkBgSecondary');
+                        if (item.textVar === 'text-primary') el.classList.add('text-nordDarkTextPrimary');
+                        if (item.textVar === 'text-secondary') el.classList.add('text-nordDarkTextSecondary');
+                        if (item.borderVar === 'border-color') el.classList.add('border-nordDarkBorder');
+                    } else { // light theme
+                        if (item.bgVar === 'bg-primary') el.classList.add('bg-nordLightBgPrimary');
+                        if (item.bgVar === 'bg-secondary') el.classList.add('bg-nordLightBgSecondary');
+                        if (item.textVar === 'text-primary') el.classList.add('text-nordLightTextPrimary');
+                        if (item.textVar === 'text-secondary') el.classList.add('text-nordLightTextSecondary');
+                        if (item.borderVar === 'border-color') el.classList.add('border-nordLightBorder');
+                    }
+                     // Classes para accent e hover são tratadas por variáveis CSS
+                });
+            });
+        }
+
+        function loadTheme() {
+            // Tenta carregar o tema salvo, caso contrário, usa 'dark' como padrão
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(savedTheme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        }
+
+        // Chama a função para iniciar a animação do texto hacker quando a página carrega
         window.onload = animateHackerText;
     </script>
 </body>
