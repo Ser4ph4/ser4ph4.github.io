@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <link rel="icon" href="images/favicon.gif" type="image/x-icon">
     <meta charset="UTF-8">
-   <link rel="icon" href="images/favicon.gif" type="image/x-icon">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ser4ph4</title> <!-- Título da página alterado para Ser4ph4 -->
     <!-- Inclui o CDN do Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -196,6 +196,7 @@
                     <span>GitHub</span>
                 </a>
                 <span class="text-secondary-text">Visitas: <span id="visitCount" class="inline-block px-2 py-1 rounded border border-border-color bg-primary-bg">0</span></span>
+                <!-- Uptime removido -->
             </div>
         </div>
     </footer>
@@ -227,7 +228,6 @@
             loadTheme();
 
             // Chama a função para iniciar a animação do texto hacker
-            // Verifica se hackerLogText existe antes de chamar a função
             if (hackerLogText) {
                 animateHackerText();
             }
