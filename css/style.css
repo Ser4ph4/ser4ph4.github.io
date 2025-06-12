@@ -188,6 +188,7 @@ footer {
     border-radius: 8px; /* Cantos arredondados */
     position: relative; /* Necessário para z-index */
     z-index: 1; /* Garante que o rodapé fique acima do canvas */
+    margin: 0px; /* Margin distancia no rodapé */
 }
 
 /* Animação do cursor piscante */
