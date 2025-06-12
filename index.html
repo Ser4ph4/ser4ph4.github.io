@@ -1,12 +1,187 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RKeaves :: Terminal</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon"> 
+  <style>
+    :root {
+      --neon-cyan: #0ff;
+      --neon-amber: #FF9900;
+      --matrix-green: #0f0;
+      --cyber-background: linear-gradient(45deg, #0a0a1a, #1a1a2e);
+      --terminal-border: 2px solid var(--neon-cyan);
+      --text-glow: 0 0 10px currentColor;
+    }
+
+    body {
+      background: var(--cyber-background);
+      color: var(--neon-cyan);
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+      text-shadow: var(--text-glow);
+      min-height: 100vh;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      border: var(--terminal-border);
+      padding: 2rem;
+      box-shadow: 0 0 20px var(--neon-amber);
+    }
+
+    .menu {
+      border-top: var(--terminal-border);
+      border-bottom: var(--terminal-border);
+      padding: 1rem 0;
+      margin: 2rem 0;
+    }
+
+    .menu ul {
+      display: flex;
+      justify-content: space-between;
+      padding: 0;
+      list-style: none;
+    }
+
+    .menu li a {
+      color: var(--neon-amber);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .menu li a:hover {
+      color: black;
+      background: var(--neon-amber);
+      padding: 0.2rem;
+    }
+
+    .prompt {
+      color: var(--matrix-green);
+      font-weight: bold;
+    }
+
+    .blink {
+      animation: cyber-blink 1s step-end infinite;
+      color: var(--matrix-green);
+    }
+
+    @keyframes cyber-blink {
+      50% { opacity: 0; }
+    }
+
+    pre {
+      background: rgba(0,0,0,0.7);
+      border: 2px solid var(--neon-amber);
+      padding: 1rem;
+      overflow-x: auto;
+      text-shadow: none;
+      margin: 1rem 0;
+      box-shadow: 0 0 10px var(--neon-amber);
+    }
+
+    code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      display: block;
+    }
+
+    h2 {
+      color: var(--neon-amber);
+      border-bottom: 2px solid var(--neon-cyan);
+      padding-bottom: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    li::before {
+      content: "⊛";
+      color: var(--neon-amber);
+      margin-right: 0.5rem;
+    }
+
+    a {
+      color: var(--neon-cyan);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      text-shadow: 0 0 15px var(--neon-cyan);
+    }
+  </style>
+</head>
 <body>
-  <link rel="icon" type="image/x-icon" href="https://ser4ph4.github.io/images/favicon.gif">
-  <title>Seraph4 Page - Projects</title>
-<center><h1>👽Hello World - OK</h1></center>
-<center><p>I'm hosted with GitHub Pages.</p></center>
-  <div align=center><a href='https://www.counter12.com'><img src='https://www.counter12.com/img-0980029Aaw13ZB83-8.gif' border='0' alt='web counter free'></a><script type='text/javascript' src='https://www.counter12.com/ad.js?id=0980029Aaw13ZB83'></script></div>
+<div class="container">
+  <header>
+      <div class="menu">
+        <ul>
+          <li class="prompt">
+            [RKeaves@home]$ <span class="blink">█</span>
+          </li>
+          <li><a href="https://rkeaves.online">/profile</a></li>
+          <li><a href="/bio">/bio</a></li>
+          <li><a href="https://discord.com/invite/qR6R8A39Pk" target="_blank" rel="noopener noreferrer">/gateway</a></li>
+        </ul>
+      </div>
+  </header>
+
+  <main>
+    <pre><code>$ cat /user/RKeaves/profile.yaml</code></pre>
+
+    <pre><code>handle: RKeaves
+module: VIDORA
+source: US  
+        
+focus:
+  - python
+  - cyberSec
+  - P2P 
+    
+deep_interests:
+  - web dev
+  - bot crafting
+  - automation scripts
+  - audiophile
+  - pc gaming</code></pre>
+    <pre><code>$ ./initiate_greet.sh</code></pre>
+
+    <p>Greetings, net traveler! I'm RK, a ██ year old digital artisan sculpting code from the US under the handle RKeaves. A web dev at the tail end of his career, I'm now chasing projects that ignite passion over profit. I'm deep into P2P networks and automation scripting. Currently building Vidora, a project exploring P2P environments. If you're into resilient systems and clever code, let’s connect.</p>
+    
+    <h2>> Coordinates</h2>
+    <ul>
+      <li>discord: <a href="https://discord.com/invite/qR6R8A39Pk" target="_blank" rel="noopener noreferrer"><strong>rkeaves</strong></a></li>
+      <li>matrix: <a href="https://rkeaves.online" ><strong>rkeaves.online</strong></a></li>
+      <li>email: <a href="mailto:contact@rkeaves.online" ><strong>contact@rkeaves.online</strong></a></li>
+      <li>vault: <a href="https://github.com/RKeaves" target="_blank" rel="noopener noreferrer"><strong>github.com/rkeaves</strong>     </a></li>
+    <li>cache: <a href="https://cache-gate.online" target="_blank" rel="noopener noreferrer">
+        <img src="http://rkeaves.online/assets/tornado.webp" alt="Tornado Icon" width="11" height="11" style="vertical-align: middle;">
+    </a>
+    </li>
+    </ul>
+    <h2>> Live Constructs</h2>
+    <ul>
+      <li><a href="https://discord.com/invite/qR6R8A39Pk">vidora</a></li>
+    </ul>
+    <div style="text-align: left; margin: 2rem 0;">
+      <p style="font-size: 1rem; font-family: 'Courier New', Courier, monospace; display: inline;">
+      Visitors:<img src="https://visit-counter.vercel.app/counter.png?page=rkeaves.github.io&s=17&c=0ff&bg=transparent" alt="Visit Counter" style="vertical-align: middle; border: none; display: inline; margin-left: 1px; margin-top: -2px;">
+      </p>
+    </div>
+  </main>
+  </div>
 </body>
 </html>
