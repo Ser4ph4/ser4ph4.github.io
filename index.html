@@ -3,369 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ser4ph4 - Projects   </title>
-    <link rel="icon" href="images/favicon.gif" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Roboto', 'sans-serif'],
-                        hacker: ['VT323', 'monospace'],
-                    },
-                    colors: {
-                        'primary-bg': 'var(--bg-primary)',
-                        'secondary-bg': 'var(--bg-secondary)',
-                        'primary-text': 'var(--text-primary)',
-                        'secondary-text': 'var(--text-secondary)',
-                        'border-color': 'var(--border-color)',
-                        'accent-color': 'var(--accent-color)',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-
-        @media (min-width: 768px) {
-         .md\:p-2 {
-         padding: 0.5rem;
-         border: 2px solid #272c36!important;
-  }
-}
-
-        /* Define as variáveis CSS para o tema DARK */
-        :root[data-theme='dark'] {
-            --bg-primary: #2E3440;
-            --bg-secondary: #3B4252;
-            --text-primary: #D8DEE9;
-            --text-secondary: #D8DEE9;
-            --border-color: #2E3440;
-            --accent-color: #88C0D0;
-        }
-
-        /* Define as variáveis CSS para o tema LIGHT */
-        :root[data-theme='light'] {
-            --bg-primary: #ECEFF4;
-            --bg-secondary: #E5E9F0;
-            --text-primary: #2E3440;
-            --text-secondary: #3B4252;
-            --border-color: #2E3440;
-            --accent-color: #88C0D0;
-        }
-
-        /* Aplica as variáveis CSS ao body (fundo principal) */
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-        }
-
-        /* Ajustes de tamanho de fonte para melhor legibilidade com Roboto */
-        .logo-text {
-            font-family: 'VT323', monospace;
-            font-size: 2.5rem;
-        }
-        .logo-icon { font-size: 5rem; }
-        @media (min-width: 768px) {
-            .logo-text { font-size: 2.75rem; }
-            .logo-icon { font-size: 3.5rem; }
-        }
-
-        .text-lg { font-size: 1.15rem; }
-        .text-md { font-size: 1.05rem; }
-        .text-sm { font-size: 0.9rem; }
-        .text-xs { font-size: 0.75rem; }
-        .text-4xl { font-size: 2.8rem; }
-        .text-5xl { font-size: 3.5rem; }
-
-        /* Estilos para o Canvas de Fundo */
-        #backgroundCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.15;
-        }
-    </style>
+    <title>Ser4ph4 - Project</title>
+    <!-- Importa a fonte 'Fira Code' do Google Fonts para um visual de terminal aprimorado -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Link para o arquivo de estilo externo -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="min-h-screen flex flex-col antialiased" data-theme="dark">
-    <canvas id="backgroundCanvas"></canvas>
+<body>
+    <!-- Canvas para o background animado estilo Matrix -->
+    <canvas id="matrix-background"></canvas>
 
-    <header class="bg-secondary-bg shadow-lg p-4 md:p-6 border-b border-border-color rounded-b-lg">
-        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <a class="font-bold text-primary-text hover:text-accent-color transition-colors duration-200 flex items-center space-x-2">
-                <span class="text-accent-color logo-icon">
-                    <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 1L2 6v12l10 5 10-5V6L12 1zm0 2.292l7.708 3.854L12 10.001 4.292 7.146 12 3.292zM4 9.146l7 3.5v7.708l-7-3.5V9.146zm8 10.001V12.646l7-3.5v7.708l-7 3.5z"/>
-                    </svg>
-                </span>
-                <span id="hackerLogText" class="logo-text">Ser4ph4</span>
-            </a>
-            <div class="flex items-center space-x-4">
-                <nav class="md:bg-primary-bg md:p-2 md:rounded-lg md:border md:border-color">
-                    <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-lg">
-                        <li>
-                            <a href="https://ser4ph4.github.io/" class="block px-3 py-1 rounded hover:bg-border-color hover:scale-105 transform transition-all duration-200 font-medium text-secondary-text hover:text-accent-color">Início</a>
-                        </li>
-                        <li>
-                            <a href="/sobre.html" class="block px-3 py-1 rounded hover:bg-border-color hover:scale-105 transform transition-all duration-200 font-medium text-secondary-text hover:text-accent-color">Sobre</a>
-                        </li>
-                        <li>
-                            <a href="/projetos.html" class="block px-3 py-1 rounded hover:bg-border-color hover:scale-105 transform transition-all duration-200 font-medium text-secondary-text hover:text-accent-color">Projetos</a>
-                        </li>
-                        <li>
-                            <a href="/contato.html" class="block px-3 py-1 rounded hover:bg-border-color hover:scale-105 transform transition-all duration-200 font-medium text-secondary-text hover:text-accent-color">Contato</a>
-                        </li>
-                    </ul>
-                </nav>
-                <button id="themeToggleButton" class="p-2 rounded-full bg-primary-bg text-primary-text hover:bg-border-color focus:outline-none focus:ring-2 focus:ring-accent-color transition-colors duration-200">
-                    <svg id="themeIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.746 7.746a.75.75 0 01-.01.995l-1.625 1.625a.75.75 0 01-1.06-1.06l1.625-1.625a.75.75 0 01.995-.01zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM7.746 16.254a.75.75 0 01.995.01l1.625 1.625a.75.75 0 01-1.06 1.06l-1.625-1.625a.75.75 0 01.01-.995zM12 17.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V18a.75.75 0 01.75-.75zM16.254 7.746a.75.75 0 011.06-.01l1.625 1.625a.75.75 0 01-1.06 1.06l-1.625-1.625a.75.75 0 01-.01-.995zM17.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H18a.75.75 0 01-.75-.75zM16.254 16.254a.75.75 0 01.01-1.06l1.625-1.625a.75.75 0 011.06 1.06l-1.625 1.625a.75.75 0 01-1.06-.01zM12 7a5 5 0 100 10 5 5 0 000-10z"></path>
-                    </svg>
-                </button>
-            </div>
+    <header>
+        <!-- Container da logo com efeito de terminal -->
+        <div class="logo-container">
+            <pre id="logo-terminal" class="logo"></pre>
         </div>
+        <!-- Menu de navegação -->
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#services">Serviços</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <main class="flex-grow max-w-4xl mx-auto p-4 md:p-8 py-12">
-        <section class="mb-12 bg-secondary-bg p-6 rounded-lg shadow-md">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-text mb-6 leading-tight">
-                Bem-vindo ao Meu Espaço Online.
-            </h1>
-            <p class="text-lg md:text-xl text-secondary-text leading-relaxed mb-4">
-                Este é um exemplo de tema HTML e CSS projetado para ter uma aparência limpa e minimalista, inspirado em sites com foco em conteúdo e simplicidade. A tipografia é o ponto central aqui.
-            </p>
-            <p class="text-lg md:text-xl text-secondary-text leading-relaxed">
-                Aproveite para explorar o conteúdo, que é sempre direto e sem distrações. A navegação é intuitiva e o design se adapta bem a diferentes tamanhos de tela.
-            </p>
+    <main>
+        <!-- Seção Home/Hero -->
+        <section id="home" class="hero">
+            <h1>Bem-vindo ao Ser4ph4 - Project</h1>
+            <p>Preparado para explorar o submundo da programação e cibersegurança?</p>
         </section>
 
-        <section class="mb-12 p-6 rounded-lg">
-            <h2 class="text-3xl md:text-4xl font-bold text-primary-text mb-5">
-                Sobre este Design
-            </h2>
-            <p class="text-md md:text-lg text-secondary-text leading-relaxed mb-3">
-                Este layout utiliza o Tailwind CSS para um desenvolvimento rápido e um design responsivo. Ele é construído com componentes simples e reutilizáveis, garantindo uma experiência de usuário consistente em todos os dispositivos. As cores Nord foram escolhidas para serem suaves e fáceis de ler, com foco na acessibilidade em um tema escuro.
-            </p>
-            <p class="text-md md:text-lg text-secondary-text leading-relaxed">
-                Elementos como espaçamento, tamanho da fonte e contraste de cores foram cuidadosamente considerados para criar uma hierarquia visual clara e melhorar a legibilidade do texto.
-            </p>
+        <!-- Seção Sobre Nós -->
+        <section id="about">
+            <h2>Sobre Nós</h2>
+            <p>Somos um coletivo de entusiastas de tecnologia, explorando as profundezas do código e desvendando os segredos do universo digital. Nossa paixão é a segurança da informação e a inovação.</p>
         </section>
 
-        <section class="mb-12 p-6 rounded-lg">
-            <h2 class="text-3xl md:text-4xl font-bold text-primary-text mb-5">
-                Exemplo de Listagem
-            </h2>
-            <ul class="list-disc list-inside text-md md:text-lg text-secondary-text space-y-2">
-                <li>Design Minimalista e Limpo (Tema Nord)</li>
-                <li>Foco em Tipografia Legível em Fundo Escuro</li>
-                <li>Responsivo para Mobile e Desktop</li>
-                <li>Uso de Cores Suaves e Neutras (Paleta Nord)</li>
-                <li>Navegação Simples e Direta</li>
+        <!-- Seção Nossos Serviços -->
+        <section id="services">
+            <h2>Nossos Serviços</h2>
+            <ul>
+                <li>Análise de Vulnerabilidades e Testes de Penetração</li>
+                <li>Desenvolvimento Seguro de Software e Aplicações Web</li>
+                <li>Consultoria Especializada em Cibersegurança e Proteção de Dados</li>
+                <li>Treinamento e Conscientização em Segurança para Equipes</li>
             </ul>
+        </section>
+
+        <!-- Seção Contato -->
+        <section id="contact">
+            <h2>Contato</h2>
+            <p>Se você tem um desafio para nós ou deseja saber mais, entre em contato através do e-mail:</p>
+            <p><a href="mailto:contato@ser4ph4.com">contato@ser4ph4.com</a></p>
+            <p>Ou nos encontre nas redes sociais com a hashtag #Ser4ph4Project.</p>
         </section>
     </main>
 
-    <footer class="bg-secondary-bg text-primary-text p-4 md:p-6 text-center mt-auto border-t border-border-color rounded-t-lg">
-        <div class="max-w-4xl mx-auto text-sm md:text-base flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <span>&copy; 2025 Ser4ph4. Todos os direitos reservados.</span>
-            <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-                <a href="mailto:seu.email@example.com" class="inline-flex items-center space-x-2 px-2 py-1 rounded border border-border-color bg-primary-bg text-secondary-text hover:bg-border-color hover:text-accent-color transition-colors duration-200 group text-xs">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M2.003 5.884 10 11.25l7.997-5.366A2.25 2.25 0 0 0 16.5 4.5h-9a2.25 2.25 0 0 0-2.247 1.384ZM2.003 6.643V18h19.994V6.643L12 12.893 2.003 6.643Z"></path>
-                    </svg>
-                    <span>Email</span>
-                </a>
-                <a href="https://github.com/seu-usuario" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 px-2 py-1 rounded border border-border-color bg-primary-bg text-secondary-text hover:bg-border-color hover:text-accent-color transition-colors duration-200 group text-xs">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.417 2.865 8.138 6.839 9.444.5.092.682-.218.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.931 0-1.091.391-1.988 1.03-2.696-.103-.253-.448-1.275.097-2.662 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.7.115 2.5.344 1.909-1.296 2.747-1.025 2.747-1.025.546 1.387.202 2.409.097 2.662.64.708 1.029 1.605 1.029 2.696 0 3.826-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.338-.012 2.419-.012 2.747 0 .265.178.573.687.478C21.174 20.118 24 16.398 24 12.017 24 6.484 19.522 2 14 2h-2z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span>GitHub</span>
-                </a>
-                <span class="text-secondary-text">Visitas:</span><div align=left><a href='https://www.counter12.com'><img src='https://www.counter12.com/img-0980029Aaw13ZB83-8.gif' border='0' alt='web counter free'></a><script type='text/javascript' src='https://www.counter12.com/ad.js?id=0980029Aaw13ZB83'></script></div>
-            </div>
-        </div>
+    <footer>
+        <p>&copy; 2025 Ser4ph4 - Project. Todos os direitos reservados. Código-fonte disponível sob solicitação.</p>
     </footer>
 
-    <script>
-        // Declarações globais para o efeito de logo
-        const hackerLogText = document.getElementById('hackerLogText');
-        const originalText = "Ser4ph4";
-        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
-
-        // Lógica do contador de visitas e inicialização do tema/logo
-        document.addEventListener('DOMContentLoaded', () => {
-            const visitCountElement = document.getElementById('visitCount');
-            let visits = localStorage.getItem('page_visits');
-
-            if (visits) {
-                visits = parseInt(visits) + 1;
-            } else {
-                visits = 1;
-            }
-            localStorage.setItem('page_visits', visits);
-
-            // Anima o contador de visitas
-            animateCounterDigits(visitCountElement, visits);
-
-            // Inicializa o tema e o listener do botão
-            const themeToggleButton = document.getElementById('themeToggleButton');
-            themeToggleButton.addEventListener('click', toggleTheme);
-            loadTheme();
-
-            // Chama a função para iniciar a animação do texto hacker
-            if (hackerLogText) {
-                animateHackerText();
-            }
-
-            // Lógica do efeito de fundo de terminal
-            const canvas = document.getElementById('backgroundCanvas');
-            const ctx = canvas.getContext('2d');
-
-            let W = window.innerWidth;
-            let H = window.innerHeight;
-            canvas.width = W;
-            canvas.height = H;
-
-            const font_size = 10;
-            const columns = Math.floor(W / font_size);
-            const drops = [];
-
-            for (let x = 0; x < columns; x++) {
-                drops[x] = 1;
-            }
-
-            function drawBackgroundEffect() {
-                ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; // Cor de fundo com transparência para o efeito de rastro
-                ctx.fillRect(0, 0, W, H);
-
-                ctx.fillStyle = "#88C0D0"; // Cor dos caracteres (Nord Frost)
-                ctx.font = font_size + "px monospace"; // Usar monospace para o efeito de terminal
-
-                for (let i = 0; i < drops.length; i++) {
-                    const text = characters[Math.floor(Math.random() * characters.length)];
-                    ctx.fillText(text, i * font_size, drops[i] * font_size);
-
-                    if (drops[i] * font_size > H && Math.random() > 0.975) {
-                        drops[i] = 0;
-                    }
-                    drops[i]++;
-                }
-                requestAnimationFrame(drawBackgroundEffect);
-            }
-
-            // Inicia o efeito de fundo
-            drawBackgroundEffect();
-
-            // Lógica de redimensionamento do canvas de fundo
-            window.addEventListener('resize', () => {
-                W = window.innerWidth;
-                H = window.innerHeight;
-                canvas.width = W;
-                canvas.height = H;
-                drops.length = Math.floor(W / font_size);
-                for (let x = 0; x < drops.length; x++) {
-                    drops[x] = 1;
-                }
-            });
-        });
-
-        // Função para gerar um caractere aleatório (usada pelo efeito do logo)
-        function getRandomChar() {
-            return characters[Math.floor(Math.random() * characters.length)];
-        }
-
-        // Função para simular o efeito de digitação/decodificação para o logo
-        function animateHackerText() {
-            let iteration = 0;
-            let revealInterval = null;
-
-            if (hackerLogText && hackerLogText.dataset.interval) {
-                clearInterval(parseInt(hackerLogText.dataset.interval));
-            }
-
-            if (!hackerLogText) return;
-
-            revealInterval = setInterval(() => {
-                hackerLogText.innerText = originalText
-                    .split("")
-                    .map((char, index) => {
-                        if (index < iteration) {
-                            return originalText[index];
-                        }
-                        return getRandomChar();
-                    })
-                    .join("");
-
-                if (iteration >= originalText.length) {
-                    clearInterval(revealInterval);
-                    setTimeout(animateHackerText, 3000);
-                }
-                iteration += 1 / 3;
-            }, 50);
-            hackerLogText.dataset.interval = revealInterval;
-        }
-
-        // Lógica de Animação para o Contador de Visitas
-        function animateCounterDigits(element, finalValue) {
-            const duration = 700;
-            const startTime = Date.now();
-            const stringFinalValue = String(finalValue);
-
-            function updateDigit() {
-                const elapsed = Date.now() - startTime;
-                if (elapsed < duration) {
-                    let randomDigits = '';
-                    for (let i = 0; i < stringFinalValue.length; i++) {
-                        randomDigits += Math.floor(Math.random() * 10);
-                    }
-                    element.innerText = randomDigits;
-                    requestAnimationFrame(updateDigit);
-                } else {
-                    element.innerText = finalValue;
-                }
-            }
-            requestAnimationFrame(updateDigit);
-        }
-
-        // Lógica de Tema Dark/Light
-        const themeIcon = document.getElementById('themeIcon');
-        const sunIconPath = "M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.746 7.746a.75.75 0 01-.01.995l-1.625 1.625a.75.75 0 01-1.06-1.06l1.625-1.625a.75.75 0 01.995-.01zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM7.746 16.254a.75.75 0 01.995.01l1.625 1.625a.75.75 0 01-1.06 1.06l-1.625-1.625a.75.75 0 01.01-.995zM12 17.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V18a.75.75 0 01.75-.75zM16.254 7.746a.75.75 0 011.06-.01l1.625 1.625a.75.75 0 01-1.06 1.06l-1.625-1.625a.75.75 0 01-.01-.995zM17.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H18a.75.75 0 01-.75-.75zM16.254 16.254a.75.75 0 01.01-1.06l1.625-1.625a.75.75 0 011.06 1.06l-1.625 1.625a.75.75 0 01-1.06-.01zM12 7a5 5 0 100 10 5 5 0 000-10z";
-        const moonIconPath = "M9.59 2.25a.75.75 0 01.787-.134l2.214.738a.75.75 0 00.993-.016l2.124-2.124a.75.75 0 011.06 1.06l-2.124 2.124a.75.75 0 00.016.993l.738 2.214a.75.75 0 01-.134.787l-.995.995a.75.75 0 00-.01.995l.738 2.214a.75.75 0 01-.134.787l-2.214.738a.75.75 0 00-.993.016l-2.124 2.124a.75.75 0 01-1.06-1.06l2.124-2.124a.75.75 0 00-.016-.993l-.738-2.214a.75.75 0 01.134-.787l.995-.995a.75.75 0 00.01-.995l-.738-2.214a.75.75 0 01.134-.787l2.214-.738a.75.75 0 00.993-.016l2.124-2.124a.75.75 0 011.06 1.06l-2.124 2.124a.75.75 0 00-.016.993l-.738 2.214a.75.75 0 01-.134.787l.995.995a.75.75 0 00.01.995l-.738 2.214a.75.75 0 01-.134.787L9.59 2.25zM12 7a5 5 0 100 10 5 5 0 000-10z";
-
-        function applyTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-
-            if (themeIcon) {
-                if (theme === 'dark') {
-                    themeIcon.children[0].setAttribute('d', sunIconPath);
-                } else {
-                    themeIcon.children[0].setAttribute('d', moonIconPath);
-                }
-            }
-        }
-
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            applyTheme(savedTheme);
-        }
-
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            applyTheme(newTheme);
-        }
-    </script>
+    <!-- Link para o arquivo de script externo -->
+    <script src="scripts/script.js"></script>
 </body>
 </html>
