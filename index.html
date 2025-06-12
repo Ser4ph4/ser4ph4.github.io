@@ -22,7 +22,9 @@
                         nordBgPrimary: '#2E3440', // Polar Night (Fundo principal)
                         nordBgSecondary: '#3B4252', // Polar Night (Fundo secundário/elementos)
                         nordTextPrimary: '#D8DEE9', // Snow Storm (Texto principal)
-                        nordTextSecondary: '#E5E9F0', // Snow Storm (Texto secundário)
+                        // A cor nordTextSecondary foi ajustada para ser a mesma de nordTextPrimary,
+                        // tornando-a menos "branca" e mais consistente com o Nord4.
+                        nordTextSecondary: '#D8DEE9', // Snow Storm (Texto secundário - ajustado)
                         nordAccent: '#88C0D0', // Frost (Links e destaques)
                         nordBorder: '#4C566A', // Polar Night (Bordas e divisores)
                     }
@@ -56,19 +58,19 @@
                 <span id="hackerLogText">HackerLog</span>
             </a>
             <!-- Navegação -->
-            <nav>
-                <ul class="flex space-x-6 text-lg">
+            <nav class="md:bg-nordBgPrimary md:p-2 md:rounded-lg md:border md:border-nordBorder">
+                <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-lg">
                     <li>
-                        <a href="#" class="text-nordTextSecondary hover:text-nordAccent transition-colors duration-200 font-medium">Início</a>
+                        <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Início</a>
                     </li>
                     <li>
-                        <a href="#" class="text-nordTextSecondary hover:text-nordAccent transition-colors duration-200 font-medium">Sobre</a>
+                        <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Sobre</a>
                     </li>
                     <li>
-                        <a href="#" class="text-nordTextSecondary hover:text-nordAccent transition-colors duration-200 font-medium">Projetos</a>
+                        <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Projetos</a>
                     </li>
                     <li>
-                        <a href="#" class="text-nordTextSecondary hover:text-nordAccent transition-colors duration-200 font-medium">Contato</a>
+                        <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Contato</a>
                     </li>
                 </ul>
             </nav>
