@@ -27,7 +27,7 @@ header {
     flex-direction: column; /* Coloca itens em coluna em telas pequenas */
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 5px 20px; /* Redução do padding superior para diminuir a altura do header */
     background-color: #161b22; /* Fundo do cabeçalho mais escuro */
     border-bottom: 2px solid #00ff00; /* Borda inferior verde */
     box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3); /* Sombra suave para profundidade */
@@ -42,10 +42,10 @@ header {
     font-size: 3em; /* Tamanho da fonte da logo aumentado */
     font-weight: 700; /* Peso da fonte mais encorpado para destaque */
     text-shadow: 0 0 25px #00ff00, 0 0 40px #00ff00; /* Efeito de brilho neon mais intenso */
-    margin-bottom: 15px; /* Margem inferior para separar da navegação em telas pequenas */
+    /*! margin-bottom: 15px; */ /* Margem inferior para separar da navegação em telas pequenas */
     color: #00ff00; /* Garante que a cor da logo seja verde neon */
     font-family: 'Fira Code', monospace; /* Garante que a logo use a nova fonte */
-    height: 5em; /* Define uma altura fixa para evitar o movimento ao carregar o JS */
+    height: 2em; /* Define uma altura fixa para evitar o movimento ao carregar o JS */
     display: flex; /* Para centralizar o texto verticalmente dentro da altura fixa */
     align-items: center; /* Centraliza o texto verticalmente */
     justify-content: center; /* Centraliza o texto horizontalmente */
@@ -53,7 +53,6 @@ header {
 
 /* Estilos para a logo (elemento <pre>) */
 .logo {
-    /* min-height foi removido pois a altura fixa do container já gerencia o espaço */
     white-space: pre-wrap; /* Permite quebras de linha dentro do pre */
     border-right: 2px solid transparent; /* Inicialmente transparente para o cursor */
     padding-right: 2px; /* Espaço para o cursor */
@@ -204,7 +203,7 @@ footer {
 /* Responsividade */
 @media (max-width: 768px) {
     header {
-        padding: 15px 20px;
+        padding: 5px 20px; /* Redução do padding para telas menores */
     }
 
     .logo-container {
@@ -248,7 +247,7 @@ footer {
 
 @media (max-width: 480px) {
     header {
-        padding: 10px 15px;
+        padding: 3px 15px; /* Redução do padding para telas ainda menores */
     }
     .logo-container {
         font-size: 1.6em; /* Ajuste para telas ainda menores */
