@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ser4ph4</title>
+    <title>Meu Tema Simples - Nord Dark</title>
     <!-- Inclui o CDN do Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configurações do Tailwind CSS para usar a fonte Inter e cores Nord personalizadas -->
+    <!-- Inclui a fonte 'Roboto' do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Configurações do Tailwind CSS para usar a fonte Roboto e cores Nord personalizadas -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        inter: ['Inter', 'sans-serif'],
+                        // Define 'sans' como a nova família de fontes principal para usar Roboto
+                        sans: ['Roboto', 'sans-serif'],
                     },
                     colors: {
                         // Cores Nord Theme
@@ -30,10 +33,13 @@
     <!-- Estilos globais para a fonte e cores de fundo/texto -->
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Roboto', sans-serif; /* Aplica a fonte Roboto ao corpo */
             color: theme('colors.nordTextPrimary'); /* Cor do texto principal (claro) */
             background-color: theme('colors.nordBgPrimary'); /* Cor de fundo principal (escuro) */
         }
+        /* Os ajustes de tamanho de fonte específicos para VT323 foram removidos,
+           pois Roboto se comporta de forma diferente e as classes padrão do Tailwind
+           são geralmente suficientes. */
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
@@ -47,7 +53,7 @@
                     &lt;/&gt;
                 </span>
                 <!-- Nome do Site/Logo com ID para o efeito -->
-                <span id="hackerLogText">Ser4ph4</span>
+                <span id="hackerLogText">HackerLog</span>
             </a>
             <!-- Navegação -->
             <nav>
@@ -111,12 +117,28 @@
 
     <!-- Rodapé -->
     <footer class="bg-nordBgSecondary text-nordTextPrimary p-4 md:p-6 text-center mt-auto border-t border-nordBorder rounded-t-lg">
-        <div class="max-w-4xl mx-auto text-sm md:text-base">
-            &copy; 2025 HackerLog. Todos os direitos reservados.
+        <div class="max-w-4xl mx-auto text-sm md:text-base flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+            <span>&copy; 2025 HackerLog. Todos os direitos reservados.</span>
+            <span class="text-nordTextSecondary">Visitas: <span id="visitCount">0</span></span>
         </div>
     </footer>
 
     <script>
+        // Lógica do contador de visitas
+        document.addEventListener('DOMContentLoaded', () => {
+            const visitCountElement = document.getElementById('visitCount');
+            let visits = localStorage.getItem('page_visits');
+
+            if (visits) {
+                visits = parseInt(visits) + 1;
+            } else {
+                visits = 1;
+            }
+
+            localStorage.setItem('page_visits', visits);
+            visitCountElement.innerText = visits;
+        });
+
         // Obtenha o elemento do texto do logo
         const hackerLogText = document.getElementById('hackerLogText');
         // Defina o texto original que será animado
