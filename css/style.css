@@ -41,7 +41,7 @@ header {
 .logo-container {
     font-size: 3em; /* Tamanho da fonte da logo aumentado */
     font-weight: 700; /* Peso da fonte mais encorpado para destaque */
-    text-shadow: 0 0 25px #00ff00, 0 0 40px #00ff00; /* Efeito de brilho neon mais intenso */
+    text-shadow: 0 0 6px #0f0, 0 0 8px #0f0; /* Efeito de brilho neon mais intenso */
     /*! margin-bottom: 15px; */ /* Margem inferior para separar da navegação em telas pequenas */
     color: #00ff00; /* Garante que a cor da logo seja verde neon */
     font-family: 'Fira Code', monospace; /* Garante que a logo use a nova fonte */
@@ -193,6 +193,9 @@ footer {
 /* Animação do cursor piscante */
 .blink-caret {
     animation: blink-caret 1s step-end infinite; /* Animação de piscar */
+    color: whitesmoke;
+    font-family: VT323;
+    font-size: 1em;
 }
 
 @keyframes blink-caret {
