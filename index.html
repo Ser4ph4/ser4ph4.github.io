@@ -40,14 +40,14 @@
     <!-- Cabeçalho -->
     <header class="bg-nordBgSecondary shadow-lg p-4 md:p-6 border-b border-nordBorder rounded-b-lg">
         <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <!-- Título do site/Logo com ícone hacker -->
+            <!-- Título do site/Logo com ícone hacker e efeito de texto -->
             <a href="#" class="text-2xl font-bold text-nordTextPrimary hover:text-nordAccent transition-colors duration-200 flex items-center space-x-2">
                 <!-- Ícone estilizado de código -->
                 <span class="text-3xl text-nordAccent">
                     &lt;/&gt;
                 </span>
-                <!-- Nome do Site/Logo -->
-                <span>HackerLog</span>
+                <!-- Nome do Site/Logo com ID para o efeito -->
+                <span id="hackerLogText">HackerLog</span>
             </a>
             <!-- Navegação -->
             <nav>
@@ -115,5 +115,62 @@
             &copy; 2025 HackerLog. Todos os direitos reservados.
         </div>
     </footer>
+
+    <script>
+        // Obtenha o elemento do texto do logo
+        const hackerLogText = document.getElementById('hackerLogText');
+        // Defina o texto original que será animado
+        const originalText = "HackerLog";
+        // Caracteres que serão usados para o efeito de "glitch"
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
+
+        // Função para gerar um caractere aleatório
+        function getRandomChar() {
+            return characters[Math.floor(Math.random() * characters.length)];
+        }
+
+        // Função para simular o efeito de digitação/decodificação
+        function animateHackerText() {
+            let iteration = 0; // Contador para a animação
+            let revealInterval = null; // Intervalo para revelar os caracteres um por um
+
+            // Limpa qualquer intervalo anterior para evitar múltiplas execuções
+            if (hackerLogText.dataset.interval) {
+                clearInterval(parseInt(hackerLogText.dataset.interval));
+            }
+
+            // Inicia o intervalo de revelação
+            revealInterval = setInterval(() => {
+                // Mapeia o texto original, substituindo caracteres não revelados por caracteres aleatórios
+                hackerLogText.innerText = originalText
+                    .split("")
+                    .map((char, index) => {
+                        // Se o índice for menor que a iteração, mostra o caractere original
+                        if (index < iteration) {
+                            return originalText[index];
+                        }
+                        // Caso contrário, mostra um caractere aleatório
+                        return getRandomChar();
+                    })
+                    .join("");
+
+                // Se todos os caracteres foram revelados, para o intervalo e reinicia após um tempo
+                if (iteration >= originalText.length) {
+                    clearInterval(revealInterval);
+                    // Adiciona um pequeno atraso antes de reiniciar a animação
+                    setTimeout(animateHackerText, 3000); // Reinicia após 3 segundos
+                }
+
+                // Incrementa a iteração a cada passo
+                iteration += 1 / 3; // Ajusta a velocidade do "typing"
+            }, 50); // A cada 50ms, um novo caractere é "processado"
+
+            // Armazena o ID do intervalo para poder limpá-lo se a função for chamada novamente
+            hackerLogText.dataset.interval = revealInterval;
+        }
+
+        // Chama a função para iniciar a animação quando a página carrega
+        window.onload = animateHackerText;
+    </script>
 </body>
 </html>
