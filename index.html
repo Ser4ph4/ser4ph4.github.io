@@ -2,10 +2,10 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/favicon.gif" type="image/x-icon">
-    <title>Ser4ph4</title>
-<!-- Inclui o CDN do Tailwind CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Tema Simples - Nord Dark/Light</title>
+    <!-- Inclui o CDN do Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Inclui a fonte 'Roboto' do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -18,22 +18,14 @@
                         sans: ['Roboto', 'sans-serif'],
                     },
                     colors: {
-                        // Cores Nord Theme - Modo Escuro (Dark)
-                        nordDarkBgPrimary: '#2E3440', // Polar Night (Fundo principal)
-                        nordDarkBgSecondary: '#3B4252', // Polar Night (Fundo secundário/elementos)
-                        nordDarkTextPrimary: '#D8DEE9', // Snow Storm (Texto principal)
-                        nordDarkTextSecondary: '#D8DEE9', // Snow Storm (Texto secundário - ajustado)
-                        nordDarkBorder: '#4C566A', // Polar Night (Bordas e divisores)
-
-                        // Cores Nord Theme - Modo Claro (Light)
-                        nordLightBgPrimary: '#ECEFF4', // Snow Storm (Fundo principal)
-                        nordLightBgSecondary: '#E5E9F0', // Snow Storm (Fundo secundário/elementos)
-                        nordLightTextPrimary: '#2E3440', // Polar Night (Texto principal)
-                        nordLightTextSecondary: '#3B4252', // Polar Night (Texto secundário)
-                        nordLightBorder: '#D8DEE9', // Snow Storm (Bordas e divisores)
-
-                        // Cor de Destaque (Accent) - Compartilhada entre os temas
-                        nordAccent: '#88C0D0', // Frost
+                        // Cores Nord Theme usando variáveis CSS
+                        // Estas variáveis serão definidas no bloco <style> com base no tema ativo
+                        'primary-bg': 'var(--bg-primary)',
+                        'secondary-bg': 'var(--bg-secondary)',
+                        'primary-text': 'var(--text-primary)',
+                        'secondary-text': 'var(--text-secondary)',
+                        'border-color': 'var(--border-color)',
+                        'accent-color': 'var(--accent-color)',
                     }
                 }
             }
@@ -48,38 +40,31 @@
 
         /* Define as variáveis CSS para o tema DARK */
         :root[data-theme='dark'] {
-            --bg-primary: theme('colors.nordDarkBgPrimary');
-            --bg-secondary: theme('colors.nordDarkBgSecondary');
-            --text-primary: theme('colors.nordDarkTextPrimary');
-            --text-secondary: theme('colors.nordDarkTextSecondary');
-            --border-color: theme('colors.nordDarkBorder');
-            --accent-color: theme('colors.nordAccent');
+            --bg-primary: #2E3440; /* Polar Night (Fundo principal) */
+            --bg-secondary: #3B4252; /* Polar Night (Fundo secundário/elementos) */
+            --text-primary: #D8DEE9; /* Snow Storm (Texto principal) */
+            --text-secondary: #D8DEE9; /* Snow Storm (Texto secundário - ajustado) */
+            --border-color: #4C566A; /* Polar Night (Bordas e divisores) */
+            --accent-color: #88C0D0; /* Frost */
         }
 
         /* Define as variáveis CSS para o tema LIGHT */
         :root[data-theme='light'] {
-            --bg-primary: theme('colors.nordLightBgPrimary');
-            --bg-secondary: theme('colors.nordLightBgSecondary');
-            --text-primary: theme('colors.nordLightTextPrimary');
-            --text-secondary: theme('colors.nordLightTextSecondary');
-            --border-color: theme('colors.nordLightBorder');
-            --accent-color: theme('colors.nordAccent');
+            --bg-primary: #ECEFF4; /* Snow Storm (Fundo principal) */
+            --bg-secondary: #E5E9F0; /* Snow Storm (Fundo secundário/elementos) */
+            --text-primary: #2E3440; /* Polar Night (Texto principal) */
+            --text-secondary: #3B4252; /* Polar Night (Texto secundário) */
+            --border-color: #D8DEE9; /* Snow Storm (Bordas e divisores) */
+            --accent-color: #88C0D0; /* Frost */
         }
 
-        /* Aplica as variáveis CSS usando as classes do Tailwind que serão substituídas */
-        /* Estas classes são usadas em todo o HTML para permitir a troca de tema dinâmica */
-        .bg-nordBgPrimary { background-color: var(--bg-primary); }
-        .bg-nordBgSecondary { background-color: var(--bg-secondary); }
-        .text-nordTextPrimary { color: var(--text-primary); }
-        .text-nordTextSecondary { color: var(--text-secondary); }
-        .border-nordBorder { border-color: var(--border-color); }
-        .hover\:text-nordAccent:hover { color: var(--accent-color); }
-        .text-nordAccent { color: var(--accent-color); }
-        .hover\:bg-nordBorder:hover { background-color: var(--border-color); }
-
+        /* Aplica as variáveis CSS ao body (fundo principal) */
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
 
         /* Ajustes de tamanho de fonte para melhor legibilidade com Roboto */
-        /* Ajustei o logo especificamente aqui para maior controle */
         .logo-text { font-size: 2rem; } /* Tamanho base para o texto do logo */
         .logo-icon { font-size: 2.5rem; } /* Tamanho base para o ícone do logo */
         @media (min-width: 768px) { /* md breakpoint */
@@ -96,37 +81,37 @@
 </head>
 <body class="min-h-screen flex flex-col antialiased" data-theme="dark">
     <!-- Cabeçalho -->
-    <header class="bg-nordBgSecondary shadow-lg p-4 md:p-6 border-b border-nordBorder rounded-b-lg">
+    <header class="bg-secondary-bg shadow-lg p-4 md:p-6 border-b border-border-color rounded-b-lg">
         <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <!-- Título do site/Logo com ícone hacker e efeito de texto -->
-            <a href="#" class="font-bold text-nordTextPrimary hover:text-nordAccent transition-colors duration-200 flex items-center space-x-2">
+            <a href="#" class="font-bold text-primary-text hover:text-accent-color transition-colors duration-200 flex items-center space-x-2">
                 <!-- Ícone estilizado de código -->
-                <span class="text-nordAccent logo-icon">
+                <span class="text-accent-color logo-icon">
                     &lt;/&gt;
                 </span>
                 <!-- Nome do Site/Logo com ID para o efeito -->
-                <span id="hackerLogText" class="logo-text">HackerLog</span>
+                <span id="hackerLogText" class="logo-text">Ser4ph4</span>
             </a>
             <!-- Navegação e Botão de Tema -->
             <div class="flex items-center space-x-4">
-                <nav class="md:bg-nordBgPrimary md:p-2 md:rounded-lg md:border md:border-nordBorder">
+                <nav class="md:bg-primary-bg md:p-2 md:rounded-lg md:border md:border-color">
                     <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-lg">
                         <li>
-                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder hover:scale-105 transform transition-all duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Início</a>
+                            <a href="#" class="block px-3 py-1 rounded hover:bg-border-color hover:scale-105 transform transition-all duration-200 font-medium text-secondary-text hover:text-accent-color">Início</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder hover:scale-105 transform transition-all duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Sobre</a>
+                            <a href="#" class="block px-3 py-1 rounded hover:bg-border-color hover:scale-105 transform transition-all duration-200 font-medium text-secondary-text hover:text-accent-color">Sobre</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder hover:scale-105 transform transition-all duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Projetos</a>
+                            <a href="#" class="block px-3 py-1 rounded hover:bg-border-color hover:scale-105 transform transition-all duration-200 font-medium text-secondary-text hover:text-accent-color">Projetos</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder hover:scale-105 transform transition-all duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Contato</a>
+                            <a href="#" class="block px-3 py-1 rounded hover:bg-border-color hover:scale-105 transform transition-all duration-200 font-medium text-secondary-text hover:text-accent-color">Contato</a>
                         </li>
                     </ul>
                 </nav>
                 <!-- Botão de Alternar Tema -->
-                <button id="themeToggleButton" class="p-2 rounded-full bg-nordBgPrimary text-nordTextPrimary hover:bg-nordBorder focus:outline-none focus:ring-2 focus:ring-nordAccent transition-colors duration-200">
+                <button id="themeToggleButton" class="p-2 rounded-full bg-primary-bg text-primary-text hover:bg-border-color focus:outline-none focus:ring-2 focus:ring-accent-color transition-colors duration-200">
                     <!-- Ícone de Sol/Lua (SVG) -->
                     <svg id="themeIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                         <!-- Path será preenchido pelo JavaScript -->
@@ -139,35 +124,35 @@
 
     <!-- Conteúdo Principal -->
     <main class="flex-grow max-w-4xl mx-auto p-4 md:p-8 py-12">
-        <section class="mb-12 bg-nordBgSecondary p-6 rounded-lg shadow-md">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-nordTextPrimary mb-6 leading-tight">
+        <section class="mb-12 bg-secondary-bg p-6 rounded-lg shadow-md">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-primary-text mb-6 leading-tight">
                 Bem-vindo ao Meu Espaço Online.
             </h1>
-            <p class="text-lg md:text-xl text-nordTextSecondary leading-relaxed mb-4">
+            <p class="text-lg md:text-xl text-secondary-text leading-relaxed mb-4">
                 Este é um exemplo de tema HTML e CSS projetado para ter uma aparência limpa e minimalista, inspirado em sites com foco em conteúdo e simplicidade. A tipografia é o ponto central aqui.
             </p>
-            <p class="text-lg md:text-xl text-nordTextSecondary leading-relaxed">
+            <p class="text-lg md:text-xl text-secondary-text leading-relaxed">
                 Aproveite para explorar o conteúdo, que é sempre direto e sem distrações. A navegação é intuitiva e o design se adapta bem a diferentes tamanhos de tela.
             </p>
         </section>
 
         <section class="mb-12 p-6 rounded-lg">
-            <h2 class="text-3xl md:text-4xl font-bold text-nordTextPrimary mb-5">
+            <h2 class="text-3xl md:text-4xl font-bold text-primary-text mb-5">
                 Sobre este Design
             </h2>
-            <p class="text-md md:text-lg text-nordTextSecondary leading-relaxed mb-3">
-                Este layout utiliza o Tailwind CSS para um desenvolvimento rápido e um design responsivo. Ele é construído com componentes simples e reutilizáveis, garantindo uma experiência de usuário consistente em todos os dispositivos. As cores Nord foram escolhidas para serem suaves e fáceis de leer, com foco na acessibilidade em um tema escuro.
+            <p class="text-md md:text-lg text-secondary-text leading-relaxed mb-3">
+                Este layout utiliza o Tailwind CSS para um desenvolvimento rápido e um design responsivo. Ele é construído com componentes simples e reutilizáveis, garantindo uma experiência de usuário consistente em todos os dispositivos. As cores Nord foram escolhidas para serem suaves e fáceis de ler, com foco na acessibilidade em um tema escuro.
             </p>
-            <p class="text-md md:text-lg text-nordTextSecondary leading-relaxed">
+            <p class="text-md md:text-lg text-secondary-text leading-relaxed">
                 Elementos como espaçamento, tamanho da fonte e contraste de cores foram cuidadosamente considerados para criar uma hierarquia visual clara e melhorar a legibilidade do texto.
             </p>
         </section>
 
         <section class="mb-12 p-6 rounded-lg">
-            <h2 class="text-3xl md:text-4xl font-bold text-nordTextPrimary mb-5">
+            <h2 class="text-3xl md:text-4xl font-bold text-primary-text mb-5">
                 Exemplo de Listagem
             </h2>
-            <ul class="list-disc list-inside text-md md:text-lg text-nordTextSecondary space-y-2">
+            <ul class="list-disc list-inside text-md md:text-lg text-secondary-text space-y-2">
                 <li>Design Minimalista e Limpo (Tema Nord)</li>
                 <li>Foco em Tipografia Legível em Fundo Escuro</li>
                 <li>Responsivo para Mobile e Desktop</li>
@@ -178,10 +163,10 @@
     </main>
 
     <!-- Rodapé -->
-    <footer class="bg-nordBgSecondary text-nordTextPrimary p-4 md:p-6 text-center mt-auto border-t border-nordBorder rounded-t-lg">
+    <footer class="bg-secondary-bg text-primary-text p-4 md:p-6 text-center mt-auto border-t border-border-color rounded-t-lg">
         <div class="max-w-4xl mx-auto text-sm md:text-base flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
-            <span>&copy; 2025 HackerLog. Todos os direitos reservados.</span>
-            <span class="text-nordTextSecondary">Visitas: <span id="visitCount" class="inline-block px-2 py-1 rounded border border-nordBorder bg-nordBgPrimary">0</span></span>
+            <span>&copy; 2025 Ser4ph4. Todos os direitos reservados.</span>
+            <span class="text-secondary-text">Visitas: <span id="visitCount" class="inline-block px-2 py-1 rounded border border-border-color bg-primary-bg">0</span></span>
         </div>
     </footer>
 
@@ -213,7 +198,7 @@
         // Obtenha o elemento do texto do logo
         const hackerLogText = document.getElementById('hackerLogText');
         // Defina o texto original que será animado
-        const originalText = "HackerLog";
+        const originalText = "Ser4ph4"; // Alterado para "Ser4ph4"
         // Caracteres que serão usados para o efeito de "glitch"
         const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
 
@@ -303,9 +288,9 @@
             // Atualiza o ícone do botão com base no tema
             if (themeIcon) { // Garante que o ícone existe
                 if (theme === 'dark') {
-                    themeIcon.setAttribute('d', sunIconPath); // Ícone de Sol para modo escuro (sugere mudar para claro)
+                    themeIcon.children[0].setAttribute('d', sunIconPath); // Ícone de Sol para modo escuro (sugere mudar para claro)
                 } else {
-                    themeIcon.setAttribute('d', moonIconPath); // Ícone de Lua para modo claro (sugere mudar para escuro)
+                    themeIcon.children[0].setAttribute('d', moonIconPath); // Ícone de Lua para modo claro (sugere mudar para escuro)
                 }
             }
         }
