@@ -75,6 +75,8 @@
         .text-lg { font-size: 1.15rem; }
         .text-md { font-size: 1.05rem; }
         .text-sm { font-size: 0.9rem; }
+        /* Font size for buttons */
+        .text-xs { font-size: 0.75rem; } /* Extra small text */
         .text-4xl { font-size: 2.8rem; }
         .text-5xl { font-size: 3.5rem; }
     </style>
@@ -126,7 +128,7 @@
     <main class="flex-grow max-w-4xl mx-auto p-4 md:p-8 py-12">
         <section class="mb-12 bg-secondary-bg p-6 rounded-lg shadow-md">
             <h1 class="text-4xl md:text-5xl font-extrabold text-primary-text mb-6 leading-tight">
-                Bem-vindo ao Meu Espaço Online, abaixo alguns projetos e detalhes para contato
+                Bem-vindo ao Meu Espaço Online.
             </h1>
             <p class="text-lg md:text-xl text-secondary-text leading-relaxed mb-4">
                 Este é um exemplo de tema HTML e CSS projetado para ter uma aparência limpa e minimalista, inspirado em sites com foco em conteúdo e simplicidade. A tipografia é o ponto central aqui.
@@ -164,9 +166,23 @@
 
     <!-- Rodapé -->
     <footer class="bg-secondary-bg text-primary-text p-4 md:p-6 text-center mt-auto border-t border-border-color rounded-t-lg">
-        <div class="max-w-4xl mx-auto text-sm md:text-base flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+        <div class="max-w-4xl mx-auto text-sm md:text-base flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <span>&copy; 2025 Ser4ph4. Todos os direitos reservados.</span>
-            <span class="text-secondary-text">Visitas: <span id="visitCount" class="inline-block px-2 py-1 rounded border border-border-color bg-primary-bg">0</span></span>
+            <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+                <a href="mailto:seu.email@example.com" class="inline-flex items-center space-x-2 px-3 py-1.5 rounded border border-border-color bg-primary-bg text-secondary-text hover:bg-border-color hover:text-accent-color transition-colors duration-200 group text-xs">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M1.5 8.672c0-.493.447-.866.92-.682l18.57 6.444a.925.925 0 01.127 1.632l-18.57 6.444a.924.924 0 01-1.047-.745V8.672z"></path>
+                    </svg>
+                    <span>Email</span>
+                </a>
+                <a href="https://github.com/seu-usuario" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 px-3 py-1.5 rounded border border-border-color bg-primary-bg text-secondary-text hover:bg-border-color hover:text-accent-color transition-colors duration-200 group text-xs">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.417 2.865 8.138 6.839 9.444.5.092.682-.218.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.931 0-1.091.391-1.988 1.03-2.696-.103-.253-.448-1.275.097-2.662 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.7.115 2.5.344 1.909-1.296 2.747-1.025 2.747-1.025.546 1.387.202 2.409.097 2.662.64.708 1.029 1.605 1.029 2.696 0 3.826-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.338-.012 2.419-.012 2.747 0 .265.178.573.687.478C21.174 20.118 24 16.398 24 12.017 24 6.484 19.522 2 14 2h-2z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+                <span class="text-secondary-text">Visitas: <span id="visitCount" class="inline-block px-2 py-1 rounded border border-border-color bg-primary-bg">0</span></span>
+            </div>
         </div>
     </footer>
 
