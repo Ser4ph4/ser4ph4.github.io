@@ -54,7 +54,7 @@ header {
 /* Estilos para a logo (elemento <pre>) */
 .logo {
     white-space: pre-wrap; /* Permite quebras de linha dentro do pre */
-    border-right: 2px solid transparent; /* Inicialmente transparente para o cursor */
+    border-right: 4px solid #2fce2f; /* Inicialmente transparente para o cursor */
     padding-right: 2px; /* Espaço para o cursor */
     box-sizing: border-box; /* Inclui padding na largura total */
 }
