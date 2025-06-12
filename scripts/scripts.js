@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Lógica para o efeito de digitação da logo
     const logoTerminal = document.getElementById('logo-terminal');
     // O texto da logo foi alterado para "Ser4ph4 - Project" com símbolos e o cursor piscante
-    const logoText = ">>>Ser4ph4 - Projects   //_"; // O "_" será o cursor piscante.
+    const logoText = ">>>Ser4ph4 - Projects //_"; // O "_" será o cursor piscante.
     let i = 0;
     let deleting = false;
     const typingSpeed = 150; // Velocidade de digitação (em milissegundos)
