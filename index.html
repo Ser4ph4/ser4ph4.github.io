@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/favicon.gif" type="image/x-icon">
     <title>Ser4ph4</title>
-    <!-- Inclui o CDN do Tailwind CSS -->
+<!-- Inclui o CDN do Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Inclui a fonte 'Roboto' do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -79,8 +79,14 @@
 
 
         /* Ajustes de tamanho de fonte para melhor legibilidade com Roboto */
-        .text-2xl { font-size: 1.8rem; }
-        .text-3xl { font-size: 2.2rem; }
+        /* Ajustei o logo especificamente aqui para maior controle */
+        .logo-text { font-size: 2rem; } /* Tamanho base para o texto do logo */
+        .logo-icon { font-size: 2.5rem; } /* Tamanho base para o ícone do logo */
+        @media (min-width: 768px) { /* md breakpoint */
+            .logo-text { font-size: 2.25rem; } /* md:text-3xl */
+            .logo-icon { font-size: 3rem; } /* md:text-4xl */
+        }
+
         .text-lg { font-size: 1.15rem; }
         .text-md { font-size: 1.05rem; }
         .text-sm { font-size: 0.9rem; }
@@ -93,29 +99,29 @@
     <header class="bg-nordBgSecondary shadow-lg p-4 md:p-6 border-b border-nordBorder rounded-b-lg">
         <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <!-- Título do site/Logo com ícone hacker e efeito de texto -->
-            <a href="#" class="text-2xl font-bold text-nordTextPrimary hover:text-nordAccent transition-colors duration-200 flex items-center space-x-2">
+            <a href="#" class="font-bold text-nordTextPrimary hover:text-nordAccent transition-colors duration-200 flex items-center space-x-2">
                 <!-- Ícone estilizado de código -->
-                <span class="text-3xl text-nordAccent">
+                <span class="text-nordAccent logo-icon">
                     &lt;/&gt;
                 </span>
                 <!-- Nome do Site/Logo com ID para o efeito -->
-                <span id="hackerLogText">Ser4ph4</span>
+                <span id="hackerLogText" class="logo-text">HackerLog</span>
             </a>
             <!-- Navegação e Botão de Tema -->
             <div class="flex items-center space-x-4">
                 <nav class="md:bg-nordBgPrimary md:p-2 md:rounded-lg md:border md:border-nordBorder">
                     <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-lg">
                         <li>
-                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Início</a>
+                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder hover:scale-105 transform transition-all duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Início</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Sobre</a>
+                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder hover:scale-105 transform transition-all duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Sobre</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Projetos</a>
+                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder hover:scale-105 transform transition-all duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Projetos</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder transition-colors duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Contato</a>
+                            <a href="#" class="block px-3 py-1 rounded hover:bg-nordBorder hover:scale-105 transform transition-all duration-200 font-medium text-nordTextSecondary hover:text-nordAccent">Contato</a>
                         </li>
                     </ul>
                 </nav>
@@ -150,7 +156,7 @@
                 Sobre este Design
             </h2>
             <p class="text-md md:text-lg text-nordTextSecondary leading-relaxed mb-3">
-                Este layout utiliza o Tailwind CSS para um desenvolvimento rápido e um design responsivo. Ele é construído com componentes simples e reutilizáveis, garantindo uma experiência de usuário consistente em todos os dispositivos. As cores Nord foram escolhidas para serem suaves e fáceis de ler, com foco na acessibilidade em um tema escuro.
+                Este layout utiliza o Tailwind CSS para um desenvolvimento rápido e um design responsivo. Ele é construído com componentes simples e reutilizáveis, garantindo uma experiência de usuário consistente em todos os dispositivos. As cores Nord foram escolhidas para serem suaves e fáceis de leer, com foco na acessibilidade em um tema escuro.
             </p>
             <p class="text-md md:text-lg text-nordTextSecondary leading-relaxed">
                 Elementos como espaçamento, tamanho da fonte e contraste de cores foram cuidadosamente considerados para criar uma hierarquia visual clara e melhorar a legibilidade do texto.
@@ -174,8 +180,8 @@
     <!-- Rodapé -->
     <footer class="bg-nordBgSecondary text-nordTextPrimary p-4 md:p-6 text-center mt-auto border-t border-nordBorder rounded-t-lg">
         <div class="max-w-4xl mx-auto text-sm md:text-base flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
-            <span>&copy; 2025 Ser4ph4. Todos os direitos reservados.</span>
-            <span class="text-nordTextSecondary">Visitas: <span id="visitCount">0</span></span>
+            <span>&copy; 2025 HackerLog. Todos os direitos reservados.</span>
+            <span class="text-nordTextSecondary">Visitas: <span id="visitCount" class="inline-block px-2 py-1 rounded border border-nordBorder bg-nordBgPrimary">0</span></span>
         </div>
     </footer>
 
@@ -190,20 +196,24 @@
             } else {
                 visits = 1;
             }
-
             localStorage.setItem('page_visits', visits);
-            visitCountElement.innerText = visits;
+
+            // Anima o contador de visitas
+            animateCounterDigits(visitCountElement, visits);
 
             // Inicializa o tema e o listener do botão
             const themeToggleButton = document.getElementById('themeToggleButton');
             themeToggleButton.addEventListener('click', toggleTheme);
             loadTheme();
+
+            // Chama a função para iniciar a animação do texto hacker
+            animateHackerText();
         });
 
         // Obtenha o elemento do texto do logo
         const hackerLogText = document.getElementById('hackerLogText');
         // Defina o texto original que será animado
-        const originalText = "Ser4ph4";
+        const originalText = "HackerLog";
         // Caracteres que serão usados para o efeito de "glitch"
         const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
 
@@ -212,7 +222,7 @@
             return characters[Math.floor(Math.random() * characters.length)];
         }
 
-        // Função para simular o efeito de digitação/decodificação
+        // Função para simular o efeito de digitação/decodificação para o logo
         function animateHackerText() {
             let iteration = 0; // Contador para a animação
             let revealInterval = null; // Intervalo para revelar os caracteres um por um
@@ -255,6 +265,30 @@
             hackerLogText.dataset.interval = revealInterval;
         }
 
+        // --- Lógica de Animação para o Contador de Visitas ---
+        function animateCounterDigits(element, finalValue) {
+            const duration = 700; // Duração da animação em milissegundos
+            const startTime = Date.now();
+            const stringFinalValue = String(finalValue); // Converte para string para obter o comprimento
+
+            function updateDigit() {
+                const elapsed = Date.now() - startTime;
+                if (elapsed < duration) {
+                    // Durante a animação, mostra dígitos aleatórios
+                    let randomDigits = '';
+                    for (let i = 0; i < stringFinalValue.length; i++) {
+                        randomDigits += Math.floor(Math.random() * 10); // Gera um dígito aleatório de 0-9
+                    }
+                    element.innerText = randomDigits;
+                    requestAnimationFrame(updateDigit);
+                } else {
+                    // Após a duração, mostra o valor final
+                    element.innerText = finalValue;
+                }
+            }
+            requestAnimationFrame(updateDigit);
+        }
+
         // --- Lógica de Tema Dark/Light ---
         const themeIcon = document.getElementById('themeIcon');
         // SVG paths para os ícones de Sol e Lua
@@ -274,49 +308,6 @@
                     themeIcon.setAttribute('d', moonIconPath); // Ícone de Lua para modo claro (sugere mudar para escuro)
                 }
             }
-
-            // Atualiza as classes do body diretamente para aplicar as cores do tema
-            const body = document.body;
-            const elementsToUpdate = [
-                { selector: 'body', bgVar: 'bg-primary', textVar: 'text-primary' },
-                { selector: 'header', bgVar: 'bg-secondary', textVar: 'text-primary', borderVar: 'border-color' },
-                { selector: 'main section:nth-of-type(1)', bgVar: 'bg-secondary', textVar: 'text-primary', shadow: true }, // Seção "Bem-vindo"
-                // A navegação md:bg-nordBgPrimary vai reagir ao var(--bg-primary)
-                { selector: 'footer', bgVar: 'bg-secondary', textVar: 'text-primary', borderVar: 'border-color' },
-                { selector: '.text-nordTextSecondary', textVar: 'text-secondary' }, // Para elementos com texto secundário
-                { selector: '.bg-nordBgPrimary', bgVar: 'bg-primary' }, // Para o menu (no desktop) e o botão
-                { selector: '.hover\\:bg-nordBorder:hover', borderVar: 'border-color' }, // Ajusta o hover da borda
-                { selector: '.text-nordAccent', textVar: 'accent-color' }, // Ajusta a cor de destaque
-                { selector: '.hover\\:text-nordAccent:hover', textVar: 'accent-color' } // Ajusta o hover do destaque
-            ];
-
-            // Percorre os elementos e aplica as classes dinamicamente
-            elementsToUpdate.forEach(item => {
-                const elements = document.querySelectorAll(item.selector);
-                elements.forEach(el => {
-                    // Remove classes de tema anteriores
-                    el.classList.remove(
-                        'bg-nordDarkBgPrimary', 'bg-nordDarkBgSecondary', 'text-nordDarkTextPrimary', 'text-nordDarkTextSecondary', 'border-nordDarkBorder',
-                        'bg-nordLightBgPrimary', 'bg-nordLightBgSecondary', 'text-nordLightTextPrimary', 'text-nordLightTextSecondary', 'border-nordLightBorder'
-                    );
-
-                    // Adiciona as classes do tema atual
-                    if (theme === 'dark') {
-                        if (item.bgVar === 'bg-primary') el.classList.add('bg-nordDarkBgPrimary');
-                        if (item.bgVar === 'bg-secondary') el.classList.add('bg-nordDarkBgSecondary');
-                        if (item.textVar === 'text-primary') el.classList.add('text-nordDarkTextPrimary');
-                        if (item.textVar === 'text-secondary') el.classList.add('text-nordDarkTextSecondary');
-                        if (item.borderVar === 'border-color') el.classList.add('border-nordDarkBorder');
-                    } else { // light theme
-                        if (item.bgVar === 'bg-primary') el.classList.add('bg-nordLightBgPrimary');
-                        if (item.bgVar === 'bg-secondary') el.classList.add('bg-nordLightBgSecondary');
-                        if (item.textVar === 'text-primary') el.classList.add('text-nordLightTextPrimary');
-                        if (item.textVar === 'text-secondary') el.classList.add('text-nordLightTextSecondary');
-                        if (item.borderVar === 'border-color') el.classList.add('border-nordLightBorder');
-                    }
-                     // Classes para accent e hover são tratadas por variáveis CSS
-                });
-            });
         }
 
         function loadTheme() {
@@ -330,9 +321,6 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             applyTheme(newTheme);
         }
-
-        // Chama a função para iniciar a animação do texto hacker quando a página carrega
-        window.onload = animateHackerText;
     </script>
 </body>
 </html>
