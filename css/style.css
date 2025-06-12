@@ -45,11 +45,15 @@ header {
     margin-bottom: 15px; /* Margem inferior para separar da navegação em telas pequenas */
     color: #00ff00; /* Garante que a cor da logo seja verde neon */
     font-family: 'Fira Code', monospace; /* Garante que a logo use a nova fonte */
+    height: 5em; /* Define uma altura fixa para evitar o movimento ao carregar o JS */
+    display: flex; /* Para centralizar o texto verticalmente dentro da altura fixa */
+    align-items: center; /* Centraliza o texto verticalmente */
+    justify-content: center; /* Centraliza o texto horizontalmente */
 }
 
 /* Estilos para a logo (elemento <pre>) */
 .logo {
-    min-height: 1.2em; /* Garante que a logo não "pule" durante o efeito de digitação */
+    /* min-height foi removido pois a altura fixa do container já gerencia o espaço */
     white-space: pre-wrap; /* Permite quebras de linha dentro do pre */
     border-right: 2px solid transparent; /* Inicialmente transparente para o cursor */
     padding-right: 2px; /* Espaço para o cursor */
@@ -205,6 +209,7 @@ footer {
 
     .logo-container {
         font-size: 2.2em; /* Ajuste para telas menores */
+        height: 3.5em; /* Ajuste a altura para telas menores */
     }
 
     nav {
@@ -247,6 +252,7 @@ footer {
     }
     .logo-container {
         font-size: 1.6em; /* Ajuste para telas ainda menores */
+        height: 2.5em; /* Ajuste a altura para telas ainda menores */
     }
     nav ul {
         flex-direction: column; /* Empilha os itens do menu */
