@@ -114,34 +114,102 @@ document.addEventListener('DOMContentLoaded', () => {
         drops.length = columns; // Ajusta o tamanho do array se a janela diminuir
     });
 
-    // --- Lógica do Modal de Imagem ---
+    // --- Lógica do Modal de Imagem (presente apenas em gallery.html) ---
+    // Verifica se os elementos do modal existem antes de adicionar listeners
     const modal = document.getElementById("imageModal");
-    const modalImage = document.getElementById("modalImage");
-    const captionText = document.getElementById("caption");
-    const closeButton = document.getElementsByClassName("close-button")[0];
+    if (modal) { // Só executa se estiver na página gallery.html
+        const modalImage = document.getElementById("modalImage");
+        const captionText = document.getElementById("caption");
+        const closeButton = document.getElementsByClassName("close-button")[0];
 
-    // Seleciona todas as imagens dentro dos itens da grade de imagens
-    const images = document.querySelectorAll(".image-item img");
+        const images = document.querySelectorAll(".image-item img");
 
-    // Adiciona um listener de clique a cada imagem da galeria
-    images.forEach(img => {
-        img.addEventListener("click", function() {
-            modal.style.display = "flex"; // Usa flex para centralizar o modal
-            modalImage.src = this.src; // Define a imagem do modal como a imagem clicada
-            captionText.innerHTML = this.alt; // Define a legenda do modal como o texto alt da imagem
+        images.forEach(img => {
+            img.addEventListener("click", function() {
+                modal.style.display = "flex";
+                modalImage.src = this.src;
+                captionText.innerHTML = this.alt;
+            });
         });
-    });
 
-    // Adiciona um listener de clique ao botão de fechar o modal
-    closeButton.addEventListener("click", function() {
-        modal.style.display = "none"; // Esconde o modal
-    });
+        closeButton.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
 
-    // Adiciona um listener de clique na janela para fechar o modal se o clique for fora da imagem
-    window.addEventListener("click", function(event) {
-        if (event.target == modal) { // Se o clique foi no próprio fundo do modal
-            modal.style.display = "none"; // Esconde o modal
-        }
-    });
+        window.addEventListener("click", function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+    }
+
+    // --- Lógica do Formulário de Contato (presente apenas em contact.html) ---
+    const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('form-message');
+
+    if (contactForm) { // Só executa se estiver na página contact.html
+        contactForm.addEventListener('submit', async function(event) { // Adicionado 'async' aqui
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            // Reseta a mensagem do formulário
+            formMessage.textContent = '';
+            formMessage.className = 'form-message'; // Remove classes de sucesso/erro
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Validação básica do lado do cliente
+            if (!name || !email || !subject || !message) {
+                formMessage.textContent = 'Erro: Todos os campos são obrigatórios.';
+                formMessage.classList.add('error');
+                return; // Impede o processamento posterior
+            }
+
+            // Validação de formato de email simples
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                formMessage.textContent = 'Erro: Por favor, insira um endereço de e-mail válido.';
+                formMessage.classList.add('error');
+                return;
+            }
+
+            // Mostra uma mensagem de "enviando..."
+            formMessage.textContent = 'Enviando transmissão... Aguarde.';
+            formMessage.classList.add('success'); // Pode ser uma classe diferente para 'info'
+
+            try {
+                // Endpoint do Formspree para envio AJAX.
+                // IMPORTANTE: Substitua 'YOUR_FORMSPREE_FORM_ID' pelo ID do seu formulário no Formspree.
+                // Você pode encontrar este ID após criar um formulário em https://formspree.io/
+                const formspreeEndpoint = 'https://formspree.io/f/mldnbqbz';
+
+                const response = await fetch(formspreeEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json' // Importante para receber JSON de volta
+                    },
+                    body: JSON.stringify({ name, email, subject, message })
+                });
+
+                if (response.ok) { // Verifica se a resposta foi bem-sucedida (status 2xx)
+                    formMessage.textContent = 'Transmissão enviada com sucesso! Em breve entraremos em contato.';
+                    formMessage.classList.add('success');
+                    contactForm.reset(); // Limpa o formulário
+                } else {
+                    // Tenta ler a mensagem de erro do Formspree se houver
+                    const errorData = await response.json();
+                    const errorMessage = errorData.error || 'Erro ao enviar transmissão. Tente novamente mais tarde.';
+                    formMessage.textContent = `Erro: ${errorMessage}`;
+                    formMessage.classList.add('error');
+                }
+            } catch (error) {
+                console.error('Erro de rede ou Formspree:', error);
+                formMessage.textContent = 'Erro de conexão. Verifique sua rede e tente novamente.';
+                formMessage.classList.add('error');
+            }
+        });
+    }
 });
-
