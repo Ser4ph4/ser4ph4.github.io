@@ -266,7 +266,6 @@ footer {
 /* --- Estilos para o Modal --- */
 .modal {
     display: none; /* Escondido por padrão */
-    position: fixed; /* Posição fixa no viewport */
     z-index: 100; /* Acima de todo o resto */
     left: 0;
     top: 0;
