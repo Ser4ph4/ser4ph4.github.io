@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
- // --- Lógica do Formulário de Contato (presente apenas em contact.html) ---
+  // --- Lógica do Formulário de Contato (presente apenas em contact.html) ---
     const contactForm = document.getElementById('contactForm');
     const formMessage = document.getElementById('form-message');
 
