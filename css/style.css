@@ -1,7 +1,7 @@
 body {
   background-color:#0d1117;
   color:#0f0;
-  font-family:'Fira Code',monospace;
+  /*! font-family:'Fira Code',monospace; */
   margin:0;
   padding:0;
   overflow-x:hidden;
@@ -149,7 +149,7 @@ footer {
   margin-top:40px;
   font-size:.9em;
   color:#90ee90;
-  border-radius:8px;
+  border-radius:8px 8px 0px 0;
   position:relative;
   z-index:1
 }
