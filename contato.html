@@ -37,37 +37,42 @@
     </header>
 
     <main>
-        <!-- Seção Home/Hero -->
-        <section id="home" class="hero">
-            <h2>  Bem-vindo ao Ser4ph4 - Projects</h2>
-            <p>Preparado para explorar o submundo da programação e cibersegurança?</p>
-        </section>
+        <form
+  action="https://formspree.io/f/mldnbqbz"
+  method="POST"
+>
+        <section id="contact-form-section">
+            <h2>Envie-nos uma Mensagem Criptografada</h2>
+            <p>Seus dados estão seguros. Use o formulário abaixo para entrar em contato com o Projeto Ser4ph4.</p>
 
-        <!-- Seção Sobre Nós -->
-        <section id="about">
-            <h2>Sobre Nós</h2>
-            <p>Somos um coletivo de entusiastas de tecnologia, explorando as profundezas do código e desvendando os segredos do universo digital. Nossa paixão é a segurança da informação e a inovação.</p>
-        </section>
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Nome do Agente:</label>
+                    <input type="text" id="name" name="name" required placeholder="Seu pseudônimo ou nome real">
+                </div>
 
-        <!-- Seção Nossos Serviços -->
-        <section id="services">
-            <h2>Nossos Serviços</h2>
-            <ul>
-                <li>Análise de Vulnerabilidades e Testes de Penetração</li>
-                <li>Desenvolvimento Seguro de Software e Aplicações Web</li>
-                <li>Consultoria Especializada em Cibersegurança e Proteção de Dados</li>
-                <li>Treinamento e Conscientização em Segurança para Equipes</li>
-            </ul>
-        </section>
+                <div class="form-group">
+                    <label for="email">Email Criptografado:</label>
+                    <input type="email" id="email" name="email" required placeholder="email@dominio.com">
+                </div>
 
-        <!-- Seção Contato -->
-        <section id="contact">
-            <h2>Contato</h2>
-            <p>Se você tem um desafio para nós ou deseja saber mais, entre em contato através do e-mail:</p>
-            <p><a href="mailto:ouizakz5u@mozmail.com">contato@ser4ph4.com</a></p>
-            <p>Ou nos encontre nas redes sociais com a hashtag #Ser4ph4Project.</p>
+                <div class="form-group">
+                    <label for="subject">Assunto da Transmissão:</label>
+                    <input type="text" id="subject" name="subject" required placeholder="Breve resumo da sua mensagem">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Mensagem Secreta:</label>
+                    <textarea id="message" name="message" rows="8" required placeholder="Sua mensagem detalhada aqui..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-button">Enviar Transmissão</button>
+
+                <div id="form-message" class="form-message"></div>
+            </form>
         </section>
     </main>
+
  <footer><div class="social-links">
     <a href="mailto:ouizakz5u@mozmail.com" target="_blank" aria-label="Email"><i class="fa-solid fa-envelope"></i>Email</a>
     <a href="https://github.com/Ser4ph4" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i>GitHub</a>
