@@ -3,10 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Lógica para o efeito de digitação da logo
     const logoTerminal = document.getElementById('logo-terminal');
     // O texto da logo foi alterado para "Ser4ph4 - Project" com símbolos e o cursor piscante
-    const logoText = ">>>Ser4ph4 - Projects //_"; // O "_" será o cursor piscante.
+    const logoText = ">>> Ser4ph4 - Project //_"; // O "_" será o cursor piscante.
     let i = 0;
     let deleting = false;
-    const typingSpeed = 150; // Velocidade de digitação (em milissegundos)
+    const typingSpeed = 100; // Velocidade de digitação (em milissegundos)
     const deletingSpeed = 50; // Velocidade de exclusão (em milissegundos)
     const delayBetweenCycles = 2000; // Atraso entre o ciclo de digitação e exclusão (em milissegundos)
 
@@ -113,5 +113,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         drops.length = columns; // Ajusta o tamanho do array se a janela diminuir
     });
-});
 
+    // --- Lógica do Modal de Imagem ---
+    const modal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modalImage");
+    const captionText = document.getElementById("caption");
+    const closeButton = document.getElementsByClassName("close-button")[0];
+
+    // Seleciona todas as imagens dentro dos itens da grade de imagens
+    const images = document.querySelectorAll(".image-item img");
+
+    // Adiciona um listener de clique a cada imagem da galeria
+    images.forEach(img => {
+        img.addEventListener("click", function() {
+            modal.style.display = "flex"; // Usa flex para centralizar o modal
+            modalImage.src = this.src; // Define a imagem do modal como a imagem clicada
+            captionText.innerHTML = this.alt; // Define a legenda do modal como o texto alt da imagem
+        });
+    });
+
+    // Adiciona um listener de clique ao botão de fechar o modal
+    closeButton.addEventListener("click", function() {
+        modal.style.display = "none"; // Esconde o modal
+    });
+
+    // Adiciona um listener de clique na janela para fechar o modal se o clique for fora da imagem
+    window.addEventListener("click", function(event) {
+        if (event.target == modal) { // Se o clique foi no próprio fundo do modal
+            modal.style.display = "none"; // Esconde o modal
+        }
+    });
+});
