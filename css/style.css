@@ -275,3 +275,10 @@ footer {
   }
 }
 
+.fa-code {
+  --fa: "\f121";
+  color: #b6b7b9;
+  font-size: 29px;
+  margin-right: 2px;
+}
+
