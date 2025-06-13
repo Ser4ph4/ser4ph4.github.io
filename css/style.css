@@ -282,3 +282,124 @@ footer {
   margin-right: 2px;
 }
 
+/* --- Estilos para o Formulário de Contato --- */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaçamento entre os grupos de formulário */
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: rgba(22, 27, 34, 0.8); /* Fundo semi-transparente para o formulário */
+    border: 1px solid #00ff00;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form label {
+    margin-bottom: 5px;
+    font-size: 1.1em;
+    color: #00ff00;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    background-color: #0d1117; /* Fundo escuro para campos de input */
+    border: 1px solid #008000;
+    border-radius: 5px;
+    padding: 10px;
+    color: #00ff00; /* Texto verde */
+    font-family: 'Fira Code', monospace;
+    font-size: 1em;
+    outline: none; /* Remove outline padrão ao focar */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+    border-color: #39ff14; /* Borda mais clara ao focar */
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.6); /* Brilho ao focar */
+}
+
+.contact-form textarea {
+    resize: vertical; /* Permite redimensionar apenas verticalmente */
+    min-height: 120px;
+}
+
+.submit-button {
+    background-color: #00ff00; /* Fundo verde neon */
+    color: #0d1117; /* Texto escuro no botão */
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); /* Sombra neon */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.submit-button:hover {
+    background-color: #39ff14; /* Verde mais claro no hover */
+    box-shadow: 0 0 25px rgba(0, 255, 0, 1); /* Sombra mais intensa */
+    transform: translateY(-2px); /* Pequeno efeito de elevação */
+}
+
+.form-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.form-message.success {
+    background-color: rgba(0, 255, 0, 0.2);
+    color: #00ff00;
+    border: 1px solid #00ff00;
+}
+
+.form-message.error {
+    background-color: rgba(255, 0, 0, 0.2);
+    color: #ff0000;
+    border: 1px solid #ff0000;
+}
+
+/* Responsividade do formulário */
+@media (max-width: 768px) {
+    .contact-form {
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    .contact-form label,
+    .contact-form input,
+    .contact-form textarea,
+    .submit-button {
+        font-size: 0.95em;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-form {
+        padding: 15px;
+    }
+
+    .contact-form label,
+    .contact-form input,
+    .contact-form textarea,
+    .submit-button {
+        font-size: 0.9em;
+    }
+}
