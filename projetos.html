@@ -36,38 +36,41 @@
         </nav>
     </header>
 
-    <main>
-        <!-- Seção Home/Hero -->
-        <section id="home" class="hero">
-            <h2>  Bem-vindo ao Ser4ph4 - Projects</h2>
-            <p>Preparado para explorar o submundo da programação e cibersegurança?</p>
-        </section>
+<main>
+        <section id="image-gallery">
+            <h2>Nossas Imagens Digitais</h2>
+            <p>Uma coleção de capturas de tela, designs e conceitos visuais do nosso projeto.</p>
 
-        <!-- Seção Sobre Nós -->
-        <section id="about">
-            <h2>Sobre Nós</h2>
-            <p>Somos um coletivo de entusiastas de tecnologia, explorando as profundezas do código e desvendando os segredos do universo digital. Nossa paixão é a segurança da informação e a inovação.</p>
-        </section>
-
-        <!-- Seção Nossos Serviços -->
-        <section id="services">
-            <h2>Nossos Serviços</h2>
-            <ul>
-                <li>Análise de Vulnerabilidades e Testes de Penetração</li>
-                <li>Desenvolvimento Seguro de Software e Aplicações Web</li>
-                <li>Consultoria Especializada em Cibersegurança e Proteção de Dados</li>
-                <li>Treinamento e Conscientização em Segurança para Equipes</li>
-            </ul>
-        </section>
-
-        <!-- Seção Contato -->
-        <section id="contact">
-            <h2>Contato</h2>
-            <p>Se você tem um desafio para nós ou deseja saber mais, entre em contato através do e-mail:</p>
-            <p><a href="mailto:ouizakz5u@mozmail.com">contato@ser4ph4.com</a></p>
-            <p>Ou nos encontre nas redes sociais com a hashtag #Ser4ph4Project.</p>
+            <div class="image-grid">
+                <!-- Exemplo de item de imagem -->
+                <div class="image-item">
+                    <img src="https://placehold.co/600x400/003300/00ff00?text=Sistema+Operacional" alt="Interface do Sistema Operacional">
+                    <div class="image-caption">Interface do OS</div>
+                </div>
+                <div class="image-item">
+                    <img src="https://placehold.co/600x400/003300/00ff00?text=Análise+de+Rede" alt="Diagrama de Análise de Rede">
+                    <div class="image-caption">Mapeamento de Rede</div>
+                </div>
+                <div class="image-item">
+                    <img src="https://placehold.co/600x400/003300/00ff00?text=Código+Fonte" alt="Trecho de Código-Fonte">
+                    <div class="image-caption">Debugging em Andamento</div>
+                </div>
+                <div class="image-item">
+                    <img src="https://placehold.co/600x400/003300/00ff00?text=Criptografia" alt="Visualização de Dados Criptografados">
+                    <div class="image-caption">Algoritmo de Criptografia</div>
+                </div>
+                <div class="image-item">
+                    <img src="https://placehold.co/600x400/003300/00ff00?text=Servidores" alt="Rack de Servidores em um Ambiente Escuro">
+                    <div class="image-caption">Núcleo do Servidor</div>
+                </div>
+                <div class="image-item">
+                    <img src="https://placehold.co/600x400/003300/00ff00?text=Fluxo+de+Dados" alt="Visualização de Fluxo de Dados">
+                    <div class="image-caption">Monitoramento de Fluxo</div>
+                </div>
+            </div>
         </section>
     </main>
+
  <footer><div class="social-links">
     <a href="mailto:ouizakz5u@mozmail.com" target="_blank" aria-label="Email"> Email</a>
     <a href="https://github.com/Ser4ph4" target="_blank" aria-label="GitHub"> GitHub</a>
@@ -76,7 +79,15 @@
         <p>&copy; 2025 Ser4ph4 - Projects. Todos os direitos reservados. <i>Código-fonte disponível sob solicitação</i>. </p>
        
     </footer>
+    <!-- Modal para exibição de imagem em tela cheia -->
+    <div id="imageModal" class="modal">
+        <span class="close-button">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+
    <!-- Link para o arquivo de script externo -->
     <script src="scripts/scripts.js"></script>
 </body>
 </html>
+
