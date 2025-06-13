@@ -338,8 +338,8 @@ footer {
     background-color: #00ff00; /* Fundo verde neon */
     color: #0d1117; /* Texto escuro no botão */
     border: none;
-    padding: 12px 25px;
-    border-radius: 5px;
+    padding: 4px 9px;
+    border-radius: 3px;
     font-size: 1.1em;
     font-weight: bold;
     cursor: pointer;
