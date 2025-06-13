@@ -263,3 +263,178 @@ footer {
   }
 }
 
+/* --- Estilos para o Modal --- */
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Posição fixa no viewport */
+    z-index: 100; /* Acima de todo o resto */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: auto; /* Habilita rolagem se o conteúdo for maior que a tela */
+    background-color: rgba(0,0,0,0.9); /* Fundo preto semi-transparente */
+    display: flex; /* Para centralizar o conteúdo do modal */
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    animation: fadeIn 0.3s forwards; /* Animação de aparecimento */
+}
+
+/* Animação de fade-in para o modal */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Conteúdo da imagem dentro do modal */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 90%; /* Ajusta a largura para ser responsiva */
+    max-width: 800px; /* Largura máxima para a imagem */
+    border: 2px solid #00ff00; /* Borda neon */
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.7); /* Sombra neon */
+    border-radius: 8px; /* Cantos arredondados */
+    animation: zoomIn 0.4s forwards; /* Animação de zoom */
+}
+
+/* Animação de zoom-in para a imagem do modal */
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Legenda da imagem no modal */
+#caption {
+    margin: 15px auto;
+    display: block;
+    width: 90%;
+    max-width: 700px;
+    text-align: center;
+    color: #00ff00;
+    padding: 10px 0;
+    font-size: 1.2em;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+}
+
+/* Botão de fechar o modal */
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #39ff14;
+    text-decoration: none;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header {
+        padding: 5px 20px; /* Redução do padding para telas menores */
+    }
+
+    .logo-container {
+        font-size: 2.2em; /* Ajuste para telas menores */
+        height: 3.5em; /* Ajuste a altura para telas menores */
+    }
+
+    nav {
+        padding: 3px 10px; /* Reduz o preenchimento em telas menores */
+    }
+
+    nav ul li {
+        margin: 8px 10px;
+    }
+
+    nav ul li a {
+        font-size: 1em;
+    }
+
+    main {
+        padding: 15px;
+        margin: 15px auto;
+    }
+
+    .hero h1 {
+        font-size: 2.5em;
+    }
+
+    .hero p {
+        font-size: 1.2em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    section {
+        padding: 15px;
+    }
+
+    .social-links {
+        flex-direction: column; /* Botões empilhados em telas pequenas */
+    }
+
+    .image-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajuste para telas menores */
+        gap: 15px;
+    }
+
+    .image-item img {
+        height: 180px; /* Altura menor para imagens em telas menores */
+    }
+
+    .modal-content {
+        width: 95%; /* Maior largura em telas pequenas para a imagem do modal */
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 3px 15px; /* Redução do padding para telas ainda menores */
+    }
+    .logo-container {
+        font-size: 1.6em; /* Ajuste para telas ainda menores */
+        height: 2.5em; /* Ajuste a altura para telas ainda menores */
+    }
+    nav ul {
+        flex-direction: column; /* Empilha os itens do menu */
+        align-items: center;
+    }
+    nav ul li {
+        margin: 5px 0;
+    }
+    main {
+        padding: 10px;
+        margin: 10px auto;
+    }
+    .hero h1 {
+        font-size: 2em;
+    }
+    .hero p {
+        font-size: 1em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    .image-item img {
+        height: 150px; /* Altura ainda menor para imagens em telas muito pequenas */
+    }
+    .close-button {
+        font-size: 30px; /* Tamanho menor para o botão de fechar em telas pequenas */
+        top: 10px;
+        right: 15px;
+    }
+}
