@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><style xmlns="" id="catppuccin-icons-css-variables">:root {
+	--ctp-rosewater: #f5e0dc;
+  --ctp-flamingo: #f2cdcd;
+  --ctp-pink: #f5c2e7;
+  --ctp-mauve: #cba6f7;
+  --ctp-red: #f38ba8;
+  --ctp-maroon: #eba0ac;
+  --ctp-peach: #fab387;
+  --ctp-yellow: #f9e2af;
+  --ctp-green: #a6e3a1;
+  --ctp-teal: #94e2d5;
+  --ctp-sky: #89dceb;
+  --ctp-sapphire: #74c7ec;
+  --ctp-blue: #89b4fa;
+  --ctp-lavender: #b4befe;
+  --ctp-text: #cdd6f4;
+  --ctp-subtext1: #bac2de;
+  --ctp-subtext0: #a6adc8;
+  --ctp-overlay2: #9399b2;
+  --ctp-overlay1: #7f849c;
+  --ctp-overlay0: #6c7086;
+  --ctp-surface2: #585b70;
+  --ctp-surface1: #45475a;
+  --ctp-surface0: #313244;
+  --ctp-base: #1e1e2e;
+  --ctp-mantle: #181825;
+  --ctp-crust: #11111b;
+	}ul[aria-label="Files"] .PRIVATE_TreeView-item-content {
+	/* Hide directory icons by default. */
+	.PRIVATE_TreeView-directory-icon svg {
+		display: none !important;
+	}
+
+	/* Show relevant extension directory icon depending on open/closed state. */
+	svg[data-catppuccin-file-explorer-icons-iconname$='_open']:has(~ svg.octicon-file-directory-open-fill:not([data-catppuccin-file-explorer-icons])),
+	svg:not([data-catppuccin-file-explorer-icons-iconname$='_open']):has(~ svg.octicon-file-directory-fill:not([data-catppuccin-file-explorer-icons])),
+	svg[data-catppuccin-file-explorer-icons]:has(+ .octicon-file) {
+		display: inline-block !important;
+	}
+}
+
+file-tree .ActionList-content {
+	/* Hide directory icons by default. */
+	.ActionList-item-visual svg[aria-label="Directory"] {
+		display: none;
+	}
+
+	/* Show relevant extension directory icon depending on open/closed state. */
+	&amp;[aria-expanded="true"] svg[data-catppuccin-file-explorer-icons-iconname$='_open'],
+	&amp;[aria-expanded="false"] svg[data-catppuccin-file-explorer-icons]:not([data-catppuccin-file-explorer-icons-iconname$='_open']) {
+		display: inline-block !important;
+	}
+}
+
+#release_page_title + div &gt; section ul li {
+	svg[data-catppuccin-file-explorer-icons] {
+		margin-right: 4px;
+	}
+}
+
+
+
+/* Hide directory icons by default. */
+.diff-tree-list .file-row.folder .file-row-name svg {
+	display: none !important;
+}
+/* Show relevant extension directory icon depending on open/closed state. */
+.diff-tree-list .file-row.is-open svg[data-catppuccin-file-explorer-icons-iconname$='_open'],
+.diff-tree-list .file-row:not(.is-open) svg[data-catppuccin-file-explorer-icons]:not([data-catppuccin-file-explorer-icons-iconname$='_open']) {
+	display: inline-block !important;
+}
+
+
+.view-file-tree-items .tree-item {
+	&amp;.type-directory .item-content .svg {
+		display: none !important;
+	}
+
+	.item-toggle:has(svg.octicon-chevron-down) ~ .item-content svg[data-catppuccin-file-explorer-icons-iconname$='_open'],
+	.item-toggle:has(svg.octicon-chevron-right) ~ .item-content svg[data-catppuccin-file-explorer-icons]:not([data-catppuccin-file-explorer-icons-iconname$='_open']) {
+		display: inline-block !important;
+	}
+}
+.diff-file-tree-items .item-directory, .diff-file-tree-items .item-file {
+	svg.octicon-file-directory-fill, svg.octicon-file-directory-open-fill {
+		display: none !important;
+	}
+
+	svg.octicon-chevron-down ~ svg[data-catppuccin-file-explorer-icons-iconname$='_open'],
+	svg.octicon-chevron-right ~ svg[data-catppuccin-file-explorer-icons]:not([data-catppuccin-file-explorer-icons-iconname$='_open']) {
+		display: inline-block !important;
+	}
+}
+
+
+.diff-file-tree-items .item-directory, .diff-file-tree-items .item-file {
+	svg.octicon-file-directory-fill {
+		display: none !important;
+	}
+
+	svg.octicon-chevron-down ~ svg[data-catppuccin-file-explorer-icons-iconname$='_open'],
+	svg.octicon-chevron-right ~ svg[data-catppuccin-file-explorer-icons]:not([data-catppuccin-file-explorer-icons-iconname$='_open']) {
+		display: inline-block !important;
+	}
+}
+
+
+
+
+
+/* Hide directory icons by default. */
+.diff-stat .tree-directory svg {
+	display: none;
+}
+
+/* Show relevant extension directory icon depending on open/closed state. */
+details[open] &gt; summary &gt; .tree-directory svg[data-catppuccin-file-explorer-icons-iconname$='_open'],
+details:not([open]) &gt; summary &gt; .tree-directory svg[data-catppuccin-file-explorer-icons]:not([data-catppuccin-file-explorer-icons-iconname$='_open']) {
+	display: inline-block !important;
+}</style><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
