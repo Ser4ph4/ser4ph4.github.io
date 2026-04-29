@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vnstat — Terminal Command Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --bg: #0a0e14;
+    --bg-raised: #0f1419;
+    --bg-card: #131820;
+    --fg: #c5cdd9;
+    --fg-dim: #5c6a7a;
+    --fg-bright: #e6eef8;
+    --accent: #00e59b;
+    --accent-dim: rgba(0,229,155,0.12);
+    --accent-glow: rgba(0,229,155,0.25);
+    --orange: #ff8f40;
+    --orange-dim: rgba(255,143,64,0.12);
+    --red: #ff5555;
+    --red-dim: rgba(255,85,85,0.1);
+    --cyan: #39bae6;
+    --cyan-dim: rgba(57,186,230,0.1);
+    --yellow: #e6b450;
+    --border: rgba(92,106,122,0.2);
+    --border-accent: rgba(0,229,155,0.3);
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Ambient background */
+  .ambient {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .ambient::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0,229,155,0.06) 0%, transparent 70%);
+    animation: floatBlob 20s ease-in-out infinite;
+  }
+  .ambient::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,143,64,0.04) 0%, transparent 70%);
+    animation: floatBlob 25s ease-in-out infinite reverse;
+  }
+  @keyframes floatBlob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(60px, -40px) scale(1.1); }
+    66% { transform: translate(-30px, 50px) scale(0.95); }
+  }
+
+  .page-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Header */
+  .page-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .page-header .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-dim);
+    border: 1px solid var(--border-accent);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .page-header h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(36px, 6vw, 56px);
+    font-weight: 700;
+    color: var(--fg-bright);
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .page-header h1 span {
+    color: var(--accent);
+  }
+  .page-header p {
+    color: var(--fg-dim);
+    font-size: 16px;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Live terminal preview */
+  .terminal-preview {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  }
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--border);
+  }
+  .terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  .terminal-dot.r { background: #ff5f57; }
+  .terminal-dot.y { background: #febc2e; }
+  .terminal-dot.g { background: #28c840; }
+  .terminal-bar span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--fg-dim);
+    margin-left: 8px;
+  }
+  .terminal-body {
+    padding: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--fg);
+    min-height: 200px;
+    position: relative;
+    overflow: hidden;
+  }
+  .terminal-body .prompt {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .terminal-body .cmd {
+    color: var(--fg-bright);
+  }
+  .terminal-body .output {
+    color: var(--fg-dim);
+    white-space: pre;
+  }
+  .terminal-body .output .val { color: var(--cyan); }
+  .terminal-body .output .label { color: var(--orange); }
+  .terminal-body .output .header-line { color: var(--accent); font-weight: 500; }
+  .terminal-body .cursor-blink {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background: var(--accent);
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Tabs */
+  .tabs-container {
+    margin-bottom: 32px;
+  }
+  .tabs-row {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: var(--bg-raised);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-row::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0;
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    color: var(--fg-dim);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--fg); background: rgba(255,255,255,0.04); }
+  .tab-btn.active {
+    background: var(--accent-dim);
+    color: var(--accent);
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+
+  /* Command cards */
+  .commands-grid {
+    display: grid;
+    gap: 12px;
+  }
+  .cmd-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .cmd-card:hover {
+    border-color: var(--border-accent);
+    box-shadow: 0 4px 20px rgba(0,229,155,0.06);
+    transform: translateY(-1px);
+  }
+  .cmd-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    gap: 16px;
+  }
+  .cmd-code {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+  }
+  .cmd-code .dollar {
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .cmd-code code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--fg-bright);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cmd-code code .flag { color: var(--orange); }
+  .cmd-code code .arg { color: var(--cyan); }
+  .cmd-code code .pipe { color: var(--fg-dim); }
+
+  .cmd-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .cmd-tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.3px;
+  }
+  .cmd-tag.essential { background: var(--accent-dim); color: var(--accent); }
+  .cmd-tag.monitoring { background: var(--cyan-dim); color: var(--cyan); }
+  .cmd-tag.admin { background: var(--orange-dim); color: var(--orange); }
+  .cmd-tag.config { background: var(--red-dim); color: var(--red); }
+
+  .copy-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--fg-dim);
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    font-size: 13px;
+  }
+  .copy-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+  .copy-btn.copied { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+  .cmd-card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+  }
+  .cmd-card.open .cmd-card-body {
+    max-height: 400px;
+    padding: 0 20px 18px;
+  }
+  .cmd-card.open {
+    border-color: var(--border-accent);
+  }
+  .cmd-desc {
+    color: var(--fg-dim);
+    font-size: 13.5px;
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .cmd-example {
+    background: rgba(0,0,0,0.25);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--fg-dim);
+    line-height: 1.6;
+    border-left: 3px solid var(--accent);
+  }
+  .cmd-example .em { color: var(--fg-bright); }
+  .cmd-example .cm { color: #4a5568; font-style: italic; }
+
+  /* Search */
+  .search-wrap {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .search-wrap i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--fg-dim);
+    font-size: 14px;
+    pointer-events: none;
+  }
+  .search-input {
+    width: 100%;
+    padding: 13px 16px 13px 44px;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--fg-bright);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .search-input::placeholder { color: var(--fg-dim); }
+  .search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--fg-dim);
+    font-size: 15px;
+  }
+  .no-results i { font-size: 32px; margin-bottom: 12px; display: block; color: var(--border); }
+
+  /* Quick reference strip */
+  .quick-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .quick-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    transition: border-color 0.3s ease;
+  }
+  .quick-item:hover { border-color: var(--border-accent); }
+  .quick-item .qi-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--fg-dim);
+    margin-bottom: 6px;
+  }
+  .quick-item .qi-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--fg-bright);
+  }
+  .quick-item .qi-value span { color: var(--accent); }
+  .quick-item .qi-sub {
+    font-size: 12px;
+    color: var(--fg-dim);
+    margin-top: 4px;
+  }
+
+  /* Toast */
+  .toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .toast {
+    background: var(--bg-card);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    animation: toastIn 0.3s ease, toastOut 0.3s ease 1.7s forwards;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes toastOut {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(-8px) scale(0.95); }
+  }
+
+  /* Keyboard hint */
+  .kbd {
+    display: inline-block;
+    padding: 2px 7px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--fg-dim);
+    vertical-align: middle;
+  }
+
+  .footer-note {
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    color: var(--fg-dim);
+    font-size: 13px;
+  }
+  .footer-note a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 640px) {
+    .page-wrapper { padding: 24px 16px 60px; }
+    .cmd-code code { font-size: 12px; }
+    .cmd-meta { display: none; }
+    .quick-strip { grid-template-columns: 1fr 1fr; }
+    .tab-btn { padding: 8px 14px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+
+<div class="page-wrapper">
+  <!-- Header -->
+  <header class="page-header reveal">
+    <div class="badge"><i class="fa-solid fa-terminal"></i> LINUX NETWORK TOOL</div>
+    <h1>v<span>n</span>stat</h1>
+    <p>Console-based network traffic monitor. Track bandwidth usage per interface, per day, per month — no heavy daemons required.</p>
+  </header>
+
+  <!-- Live Terminal Preview -->
+  <div class="terminal-preview reveal">
+    <div class="terminal-bar">
+      <div class="terminal-dot r"></div>
+      <div class="terminal-dot y"></div>
+      <div class="terminal-dot g"></div>
+      <span>bash — vnstat live output</span>
+    </div>
+    <div class="terminal-body" id="terminalBody">
+      <div><span class="prompt">$ </span><span class="cmd">vnstat -i eth0 --json</span><span class="cursor-blink"></span></div>
+    </div>
+  </div>
+
+  <!-- Quick stats -->
+  <div class="quick-strip reveal">
+    <div class="quick-item">
+      <div class="qi-label">Default View</div>
+      <div class="qi-value">vn<span>stat</span></div>
+      <div class="qi-sub">All interfaces summary</div>
+    </div>
+    <div class="quick-item">
+      <div class="qi-label">Live Traffic</div>
+      <div class="qi-value">-<span>l</span></div>
+      <div class="qi-sub">Real-time bandwidth</div>
+    </div>
+    <div class="quick-item">
+      <div class="qi-label">Hourly Stats</div>
+      <div class="qi-value">-<span>h</span></div>
+      <div class="qi-sub">Last 24 hours detail</div>
+    </div>
+    <div class="quick-item">
+      <div class="qi-label">Database Path</div>
+      <div class="qi-value">/var/lib</div>
+      <div class="qi-sub">vnstat/ directory</div>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="search-wrap reveal">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" class="search-input" id="searchInput" placeholder="Search commands... (e.g. json, live, remove)" autocomplete="off">
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-container reveal">
+    <div class="tabs-row" id="tabsRow">
+      <button class="tab-btn active" data-tab="all">All Commands</button>
+      <button class="tab-btn" data-tab="essential">Essential</button>
+      <button class="tab-btn" data-tab="monitoring">Monitoring</button>
+      <button class="tab-btn" data-tab="admin">Admin</button>
+      <button class="tab-btn" data-tab="config">Config & Tips</button>
+    </div>
+  </div>
+
+  <!-- Commands grid -->
+  <div class="commands-grid" id="commandsGrid"></div>
+
+  <!-- No results -->
+  <div class="no-results" id="noResults" style="display:none;">
+    <i class="fa-regular fa-face-meh"></i>
+    No commands match your search
+  </div>
+
+  <div class="footer-note reveal">
+    <p>vnstat is free software under <a href="https://github.com(vergoh/vnstat)" target="_blank">GPLv2</a> — Install: <span class="kbd">apt install vnstat</span> or <span class="kbd">pacman -S vnstat</span></p>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+/* ── Command Data ── */
+const commands = [
+  {
+    cmd: 'vnstat',
+    display: 'vnstat',
+    tag: 'essential',
+    desc: 'Show traffic summary for all monitored interfaces. Default view — first thing you run after installing.',
+    example: '$ vnstat\n\nDatabase updated: 2025-01-15 09:30:00\n\n <em>eth0</em>  /  monthly\n        rx       tx      total\n  Jan \'25   42.8 GiB  11.2 GiB   54.0 GiB\n  Dec \'24  128.3 GiB  34.1 GiB  162.4 GiB'
+  },
+  {
+    cmd: 'vnstat -i eth0',
+    display: 'vnstat <span class="flag">-i</span> <span class="arg">eth0</span>',
+    tag: 'essential',
+    desc: 'Show stats for a specific interface. Replace eth0 with your actual interface name (wlan0, ens33, etc.).',
+    example: '$ vnstat -i wlan0\n\n <em>wlan0</em>  /  daily\n         rx      tx     total\n  01/15  2.1 GiB  0.4 GiB   2.5 GiB\n  01/14  3.8 GiB  0.7 GiB   4.5 GiB'
+  },
+  {
+    cmd: 'vnstat -l',
+    display: 'vnstat <span class="flag">-l</span>',
+    tag: 'monitoring',
+    desc: 'Live traffic monitoring mode. Shows real-time rx/tx rates with a running average. Press <span class="kbd">q</span> to quit.',
+    example: '$ vnstat -l -i eth0\n\nMonitoring eth0...    (press CTRL-C to stop)\n\n   rx:       4.82 MiB/s   10 avg    8 max\n   tx:       0.73 MiB/s    2 avg    5 max'
+  },
+  {
+    cmd: 'vnstat -l --style 0',
+    display: 'vnstat <span class="flag">-l</span> <span class="flag">--style</span> <span class="arg">0</span>',
+    tag: 'monitoring',
+    desc: 'Live mode with compact output style (0). Style 1 adds a bar, style 2 adds more detail. Pick what fits your terminal.',
+    example: '$ vnstat -l --style 1 -i eth0\n\n  rx:  ████████████░░░░  4.8 MiB/s\n  tx:  ███░░░░░░░░░░░░░░  0.7 MiB/s'
+  },
+  {
+    cmd: 'vnstat -h',
+    display: 'vnstat <span class="flag">-h</span>',
+    tag: 'essential',
+    desc: 'Display hourly traffic statistics for the last 24 hours. Great for spotting traffic spikes at specific times.',
+    example: '$ vnstat -h -i eth0\n\n <em>eth0</em>  /  hourly\n        rx      tx     total\n  09:00  320 MiB  45 MiB  365 MiB\n  08:00  210 MiB  30 MiB  240 MiB\n  ... (last 24 hours)'
+  },
+  {
+    cmd: 'vnstat -d',
+    display: 'vnstat <span class="flag">-d</span>',
+    tag: 'essential',
+    desc: 'Show daily traffic statistics. Displays the last 30 days by default, with the current day highlighted at the top.',
+    example: '$ vnstat -d -i eth0\n\n <em>eth0</em>  /  daily\n         rx       tx      total\n  01/15   2.1 GiB  0.4 GiB   2.5 GiB  <cm># today so far</cm>\n  01/14   3.8 GiB  0.7 GiB   4.5 GiB\n  01/13   1.9 GiB  0.3 GiB   2.2 GiB'
+  },
+  {
+    cmd: 'vnstat -m',
+    display: 'vnstat <span class="flag">-m</span>',
+    tag: 'essential',
+    desc: 'Monthly traffic summary. Shows the last 12 months. The most commonly checked view for bandwidth caps and quotas.',
+    example: '$ vnstat -m -i eth0\n\n <em>eth0</em>  /  monthly\n         rx         tx       total\n  Jan \'25  42.8 GiB   11.2 GiB   54.0 GiB\n  Dec \'24 128.3 GiB   34.1 GiB  162.4 GiB\n  Nov \'24  95.6 GiB   25.8 GiB  121.4 GiB'
+  },
+  {
+    cmd: 'vnstat -w',
+    display: 'vnstat <span class="flag">-w</span>',
+    tag: 'monitoring',
+    desc: 'Weekly traffic statistics. Aggregates data into 7-day periods. Useful for week-over-week comparisons.',
+    example: '$ vnstat -w -i eth0\n\n <em>eth0</em>  /  weekly\n          rx         tx       total\n  w03/25   8.2 GiB    2.1 GiB   10.3 GiB\n  w02/25  15.4 GiB    3.8 GiB   19.2 GiB'
+  },
+  {
+    cmd: 'vnstat -t',
+    display: 'vnstat <span class="flag">-t</span>',
+    tag: 'monitoring',
+    desc: 'Top 10 days with the highest traffic. Quickly find which days consumed the most bandwidth.',
+    example: '$ vnstat -t -i eth0\n\n <em>eth0</em>  /  top 10\n    #     day        rx        tx      total\n    1   12/03/24   9.2 GiB   3.1 GiB   12.3 GiB\n    2   11/28/24   7.8 GiB   2.4 GiB   10.2 GiB'
+  },
+  {
+    cmd: 'vnstat --json',
+    display: 'vnstat <span class="flag">--json</span>',
+    tag: 'config',
+    desc: 'Output all data as JSON. Perfect for scripts, dashboards, or piping into jq for custom parsing.',
+    example: '$ vnstat -i eth0 --json <span class="pipe">|</span> jq \'.interfaces[0].traffic.day[0]\'\n\n{\n  "id": 1736918400,\n  "date": { "year": 2025, "month": 1, "day": 15 },\n  "rx": 2258432,\n  "tx": 419430,\n  "rxkib": 2205496,\n  "txkib": 409600\n}'
+  },
+  {
+    cmd: 'vnstat --xml',
+    display: 'vnstat <span class="flag">--xml</span>',
+    tag: 'config',
+    desc: 'Output in XML format. Use for integration with systems that prefer XML (legacy monitoring, certain APIs).',
+    example: '$ vnstat --xml -i eth0\n\n<em>&lt;vnstat version="2.10"&gt;</em>\n  &lt;interfaces&gt;\n    &lt;interface id="eth0"&gt;\n      &lt;name&gt;eth0&lt;/name&gt;\n      &lt;traffic&gt;...&lt;/traffic&gt;\n    &lt;/interface&gt;\n  &lt;/interfaces&gt;\n<em>&lt;/vnstat&gt;</em>'
+  },
+  {
+    cmd: 'vnstat --oneline',
+    display: 'vnstat <span class="flag">--oneline</span>',
+    tag: 'config',
+    desc: 'Single-line output format. Ideal for status bars (i3blocks, polybar, waybar) and quick script checks.',
+    example: '$ vnstat --oneline -i eth0\n\n<em>eth0;2025-01-15;54.0 GiB;162.4 GiB;2.5 GiB;4.5 GiB</em>\n <cm># interface;date;month_total;prev_month;today;yesterday</cm>'
+  },
+  {
+    cmd: 'vnstat --oneline -b',
+    display: 'vnstat <span class="flag">--oneline</span> <span class="flag">-b</span> <span class="arg">2025-01-01</span>',
+    tag: 'config',
+    desc: 'Single-line output with a custom begin date. Calculate total bandwidth used within a specific date range.',
+    example: '$ vnstat --oneline -i eth0 -b 2025-01-01 -e 2025-01-15\n\n<em>eth0;2025-01-01;2025-01-15;54.0 GiB;11.2 GiB</em>'
+  },
+  {
+    cmd: 'vnstat -b 2025-01-01 -e 2025-01-15',
+    display: 'vnstat <span class="flag">-b</span> <span class="arg">2025-01-01</span> <span class="flag">-e</span> <span class="arg">2025-01-15</span>',
+    tag: 'essential',
+    desc: 'Query traffic for a custom date range. Combine with -d, -h, -m to change the time division within that range.',
+    example: '$ vnstat -i eth0 -d -b 2025-01-01 -e 2025-01-15\n\n <em>eth0</em>  /  daily (2025-01-01 → 2025-01-15)\n  01/01   3.1 GiB  0.5 GiB   3.6 GiB\n  01/02   2.8 GiB  0.4 GiB   3.2 GiB\n  ...'
+  },
+  {
+    cmd: 'vnstat --nick myserver',
+    display: 'vnstat <span class="flag">--nick</span> <span class="arg">myserver</span>',
+    tag: 'config',
+    desc: 'Set a custom nickname for the interface. Displayed instead of the interface name in all outputs. Persisted in the database.',
+    example: '$ vnstat -i eth0 --nick myserver\n\n <em>myserver</em>  /  monthly\n         rx         tx       total\n  Jan \'25  42.8 GiB   11.2 GiB   54.0 GiB'
+  },
+  {
+    cmd: 'vnstat --add',
+    display: 'vnstat <span class="flag">--add</span> <span class="flag">-i</span> <span class="arg">eth1</span>',
+    tag: 'admin',
+    desc: 'Manually add a new interface to the database. Normally vnstat auto-detects, but this is needed for aliases or tunnels.',
+    example: '$ vnstat --add -i eth1\n\n<em>eth1</em> added to database.\n <cm># Now vnstat -i eth1 will work</cm>'
+  },
+  {
+    cmd: 'vnstat --remove -i eth0',
+    display: 'vnstat <span class="flag">--remove</span> <span class="flag">-i</span> <span class="arg">eth0</span> <span class="flag">--force</span>',
+    tag: 'admin',
+    desc: 'Remove an interface and ALL its historical data from the database. Requires --force flag to prevent accidents.',
+    example: '$ vnstat --remove -i eth0 --force\n\n<em>eth0</em> and all data removed from database.\n <cm># This is irreversible!</cm>'
+  },
+  {
+    cmd: 'vnstat --rename eth0 -n ens33',
+    display: 'vnstat <span class="flag">--rename</span> <span class="arg">eth0</span> <span class="flag">-n</span> <span class="arg">ens33</span>',
+    tag: 'admin',
+    desc: 'Rename an interface in the database. Useful after system changes where interface names shift (e.g., eth0 → ens33).',
+    example: '$ vnstat --rename eth0 -n ens33\n\nInterface <em>eth0</em> renamed to <em>ens33</em> in database.\nAll historical data is preserved.'
+  },
+  {
+    cmd: 'vnstat --setalias eth0 -n myvpn',
+    display: 'vnstat <span class="flag">--setalias</span> <span class="arg">eth0</span> <span class="flag">-n</span> <span class="arg">myvpn</span>',
+    tag: 'admin',
+    desc: 'Set a persistent alias for an interface. Unlike --nick, this is stored in the database config and survives restarts.',
+    example: '$ vnstat --setalias eth0 -n myvpn\n\nAlias for <em>eth0</em> set to <em>myvpn</em>.'
+  },
+  {
+    cmd: 'vnstat --reset',
+    display: 'vnstat <span class="flag">--reset</span> <span class="flag">-i</span> <span class="arg">eth0</span>',
+    tag: 'admin',
+    desc: 'Zero out all traffic counters for an interface. Data is set to 0 but the interface stays in the database. Requires --force.',
+    example: '$ vnstat --reset -i eth0 --force\n\nAll counters for <em>eth0</em> have been reset to zero.\n <cm># Historical data is gone!</cm>'
+  },
+  {
+    cmd: 'vnstat --dbdir /custom/path',
+    display: 'vnstat <span class="flag">--dbdir</span> <span class="arg">/custom/path</span>',
+    tag: 'config',
+    desc: 'Use a custom database directory instead of /var/lib/vnstat. Useful for testing or running vnstat as non-root user.',
+    example: '$ mkdir -p ~/vnstat-data\n$ vnstat --dbdir ~/vnstat-data -i eth0\n\n <cm># Now reads/writes from your home dir</cm>'
+  },
+  {
+    cmd: 'vnstat --limit 5',
+    display: 'vnstat <span class="flag">--limit</span> <span class="arg">5</span>',
+    tag: 'config',
+    desc: 'Limit the number of entries shown in list outputs. Works with -d, -h, -w, -m, -t to control output length.',
+    example: '$ vnstat -d --limit 5 -i eth0\n\n <em>eth0</em>  /  daily (last 5 days)\n  01/15   2.1 GiB  0.4 GiB   2.5 GiB\n  01/14   3.8 GiB  0.7 GiB   4.5 GiB\n  01/13   1.9 GiB  0.3 GiB   2.2 GiB\n  01/12   4.1 GiB  0.9 GiB   5.0 GiB\n  01/11   2.5 GiB  0.5 GiB   3.0 GiB'
+  },
+  {
+    cmd: 'vnstat --ruledump',
+    display: 'vnstat <span class="flag">--ruledump</span>',
+    tag: 'config',
+    desc: 'Dump all interface monitoring rules. Shows which interfaces are being tracked and their configuration.',
+    example: '$ vnstat --ruledump\n\n<em>rule:0</em>\n  interface: eth0\n  alias: main\n  nick: <cm>(none)</cm>\n  state: active\n<em>rule:1</em>\n  interface: wlan0\n  alias: wifi\n  state: active'
+  },
+  {
+    cmd: 'vnstat --iflist',
+    display: 'vnstat <span class="flag">--iflist</span>',
+    tag: 'monitoring',
+    desc: 'List all available network interfaces on the system. Helpful to find the correct interface name before querying.',
+    example: '$ vnstat --iflist\n\nAvailable interfaces: <em>lo eth0 wlan0 docker0 br-0a1b2c</em>'
+  },
+  {
+    cmd: 'vnstat -tr 10',
+    display: 'vnstat <span class="flag">-tr</span> <span class="arg">10</span>',
+    tag: 'monitoring',
+    desc: 'Traffic rate sampling — measure current bandwidth for N seconds then exit. Non-interactive alternative to -l.',
+    example: '$ vnstat -tr 10 -i eth0\n\n <em>eth0</em>  /  traffic sampled for 10 seconds\n\n   rx:  48.2 MiB/s\n   tx:   7.3 MiB/s'
+  },
+  {
+    cmd: 'vnstat -i eth0 --queryrate',
+    display: 'vnstat <span class="flag">-i</span> <span class="arg">eth0</span> <span class="flag">--queryrate</span>',
+    tag: 'monitoring',
+    desc: 'Instantaneous rate query — returns the current transfer rate as a single line without sampling duration.',
+    example: '$ vnstat -i eth0 --queryrate\n\n<em>eth0</em>;48231;7304;55535\n <cm># rx_bytes_per_sec;tx_bytes_per_sec;total</cm>'
+  },
+  {
+    cmd: 'vnstat --style 3',
+    display: 'vnstat <span class="flag">--style</span> <span class="arg">3</span>',
+    tag: 'config',
+    desc: 'Change output style (0–4). Style 0=minimal, 1=with bar, 2=detailed, 3=JSON-like table, 4=maximal. Affects -l output.',
+    example: '$ vnstat -l -i eth0 --style 3\n\n <cm># More verbose live view with extended stats\n   rx:  4.82 MiB/s  [=====>     ]  10s avg: 4.5 MiB/s\n   tx:  0.73 MiB/s  [=          ]  10s avg: 0.6 MiB/s'
+  },
+  {
+    cmd: 'vnstat --help',
+    display: 'vnstat <span class="flag">--help</span>',
+    tag: 'essential',
+    desc: 'Display the full help text with all available options, arguments, and usage examples. Always available locally.',
+    example: '$ vnstat --help\n\n <em>vnstat 2.10 by Teemu Toivola</em>\n\n Usage: vnstat [options] [-i interface]\n\n  -h,  --hours          show hours\n  -d,  --days           show days\n  -m,  --months         show months\n  ...'
+  },
+  {
+    cmd: 'vnstat --version',
+    display: 'vnstat <span class="flag">--version</span>',
+    tag: 'config',
+    desc: 'Print version information. Useful for debugging, reporting bugs, or checking if your installed version supports a feature.',
+    example: '$ vnstat --version\n\n<em>vnstat 2.10</em>\nDatabase version: 2\nConfig file: /etc/vnstat.conf'
+  },
+  {
+    cmd: 'vnstat -i eth0 --5minutes',
+    display: 'vnstat <span class="flag">-i</span> <span class="arg">eth0</span> <span class="flag">--5minutes</span>',
+    tag: 'monitoring',
+    desc: 'Show traffic in 5-minute intervals for the last 24 hours. Finer granularity than hourly — good for short spike detection.',
+    example: '$ vnstat -i eth0 --5minutes\n\n <em>eth0</em>  /  5 minute\n          rx       tx     total\n  09:30   12 MiB    2 MiB   14 MiB\n  09:25   15 MiB    3 MiB   18 MiB\n  09:20   98 MiB   12 MiB  110 MiB  <cm># spike!</cm>'
+  },
+  {
+    cmd: 'vnstat -i eth0 --json | jq',
+    display: 'vnstat <span class="flag">--json</span> <span class="pipe">|</span> <span class="arg">jq</span> <span class="arg">\'.interfaces[].traffic.month | sort_by(-.rx) | .[0]\'</span>',
+    tag: 'config',
+    desc: 'Combine vnstat JSON output with jq for powerful custom queries. Find your heaviest month, peak hour, or build alerts.',
+    example: '$ vnstat -i eth0 --json | jq \'.interfaces[0].traffic.top[] | select(.rx > 10000000)\'\n\n{\n  "id": 1733203200,\n  "date": { "year": 2024, "month": 12, "day": 3 },\n  "rx": 96468992,\n  "tx": 32505856\n}'
+  },
+  {
+    cmd: 'vnstatd --rebuild',
+    display: 'vnstatd <span class="flag">--rebuild</span>',
+    tag: 'admin',
+    desc: 'Force the vnstat daemon to rebuild its internal interface list. Run after adding/removing network interfaces.',
+    example: '$ sudo systemctl stop vnstat\n$ sudo vnstatd --rebuild\n$ sudo systemctl start vnstat\n\n <cm># Daemon now detects new interfaces</cm>'
+  },
+  {
+    cmd: 'vnstat -i eth0 --sum',
+    display: 'vnstat <span class="flag">-i</span> <span class="arg">eth0</span> <span class="flag">--sum</span>',
+    tag: 'essential',
+    desc: 'Show only the summary totals (all-time rx, tx, total). Cleanest way to get a single number for total bandwidth used.',
+    example: '$ vnstat -i eth0 --sum\n\n <em>eth0</em>\n  All time rx:   1.28 TiB\n  All time tx:   342 GiB\n  All time total: 1.61 TiB'
+  },
+  {
+    cmd: 'vnstat -i eth0 --bytes',
+    display: 'vnstat <span class="flag">-i</span> <span class="arg">eth0</span> <span class="flag">--bytes</span>',
+    tag: 'config',
+    desc: 'Display values in bytes instead of the default KiB/MiB/GiB. Useful for precise calculations or feeding data into other tools.',
+    example: '$ vnstat -i eth0 -d --limit 1 --bytes\n\n  01/15   2248210432 B   419430400 B   2667640832 B\n  <cm># Instead of 2.1 GiB / 0.4 GiB / 2.5 GiB</cm>'
+  },
+  {
+    cmd: 'vnstat -i eth0 --kib',
+    display: 'vnstat <span class="flag">-i</span> <span class="arg">eth0</span> <span class="flag">--kib</span>',
+    tag: 'config',
+    desc: 'Force output in KiB (kibibytes). Overrides the default adaptive unit scaling. Use with --mib or --gib for fixed units.',
+    example: '$ vnstat -i eth0 --gib -m\n\n <em>eth0</em>  /  monthly\n  Jan \'25   0.042 GiB   0.011 GiB   0.053 GiB\n  Dec \'24   0.125 GiB   0.033 GiB   0.159 GiB'
+  },
+  {
+    cmd: 'vnstat --configtest',
+    display: 'vnstat <span class="flag">--configtest</span>',
+    tag: 'admin',
+    desc: 'Validate the configuration file at /etc/vnstat.conf without starting anything. Check for syntax errors after manual edits.',
+    example: '$ vnstat --configtest\n\nConfig file: <em>/etc/vnstat.conf</em>\nParsing config... <em>OK</em>\nAll settings validated successfully.'
+  }
+];
+
+/* ── Render Commands ── */
+const grid = document.getElementById('commandsGrid');
+const noResults = document.getElementById('noResults');
+const searchInput = document.getElementById('searchInput');
+let activeTab = 'all';
+
+function renderCommands() {
+  const query = searchInput.value.toLowerCase().trim();
+  const filtered = commands.filter(c => {
+    const matchTab = activeTab === 'all' || c.tag === activeTab;
+    const matchSearch = !query ||
+      c.cmd.toLowerCase().includes(query) ||
+      c.desc.toLowerCase().includes(query) ||
+      c.tag.toLowerCase().includes(query);
+    return matchTab && matchSearch;
+  });
+
+  grid.innerHTML = '';
+  noResults.style.display = filtered.length === 0 ? 'block' : 'none';
+
+  filtered.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'cmd-card';
+    card.style.animationDelay = `${i * 30}ms`;
+    card.innerHTML = `
+      <div class="cmd-card-header">
+        <div class="cmd-code">
+          <span class="dollar">$</span>
+          <code>${c.display}</code>
+        </div>
+        <div class="cmd-meta">
+          <span class="cmd-tag ${c.tag}">${c.tag}</span>
+          <button class="copy-btn" data-cmd="${c.cmd}" title="Copy command" aria-label="Copy command">
+            <i class="fa-regular fa-clipboard"></i>
+          </button>
+        </div>
+      </div>
+      <div class="cmd-card-body">
+        <div class="cmd-desc">${c.desc}</div>
+        <div class="cmd-example">${c.example}</div>
+      </div>
+    `;
+
+    /* Toggle expand */
+    card.querySelector('.cmd-card-header').addEventListener('click', (e) => {
+      if (e.target.closest('.copy-btn')) return;
+      card.classList.toggle('open');
+    });
+
+    /* Copy button */
+    card.querySelector('.copy-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const btn = e.currentTarget;
+      const cmd = btn.dataset.cmd;
+      navigator.clipboard.writeText(cmd).then(() => {
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        showToast(`Copied: ${cmd}`);
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = '<i class="fa-regular fa-clipboard"></i>';
+        }, 1500);
+      });
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+/* ── Tabs ── */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeTab = btn.dataset.tab;
+    renderCommands();
+  });
+});
+
+/* ── Search ── */
+searchInput.addEventListener('input', renderCommands);
+
+/* ── Toast ── */
+function showToast(msg) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `<i class="fa-solid fa-check-circle"></i> ${msg}`;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 2200);
+}
+
+/* ── Terminal Animation ── */
+const terminalBody = document.getElementById('terminalBody');
+const terminalScenes = [
+  {
+    delay: 800,
+    html: `<div><span class="prompt">$ </span><span class="cmd">vnstat -i eth0</span></div>
+<div class="output"><span class="header-line">                      rx      tx      total</span>
+<span class="header-line">   eth0  /  monthly</span>
+   Jan '25   <span class="val">42.8 GiB</span>  <span class="val">11.2 GiB</span>  <span class="val">54.0 GiB</span>
+   Dec '24  <span class="val">128.3 GiB</span>  <span class="val">34.1 GiB</span>  <span class="val">162.4 GiB</span>
+   Nov '24   <span class="val">95.6 GiB</span>  <span class="val">25.8 GiB</span>  <span class="val">121.4 GiB</span>
+   Oct '24  <span class="val">110.2 GiB</span>  <span class="val">29.4 GiB</span>  <span class="val">139.6 GiB</span>
+</div>`
+  },
+  {
+    delay: 4500,
+    html: `<div><span class="prompt">$ </span><span class="cmd">vnstat -l -i eth0 --style 1</span></div>
+<div class="output">Monitoring <span class="label">eth0</span>...    (press CTRL-C to stop)
+
+   rx:  <span class="val">████████████████░░░░░</span>  4.82 MiB/s
+   tx:  <span class="val">███░░░░░░░░░░░░░░░░░</span>  0.73 MiB/s
+</div>`
+  },
+  {
+    delay: 8000,
+    html: `<div><span class="prompt">$ </span><span class="cmd">vnstat -i eth0 --sum</span></div>
+<div class="output">
+   <span class="label">eth0</span>
+   All time rx:    <span class="val">1.28 TiB</span>
+   All time tx:    <span class="val">342 GiB</span>
+   All time total: <span class="val">1.61 TiB</span>
+</div>`
+  },
+  {
+    delay: 11000,
+    html: `<div><span class="prompt">$ </span><span class="cmd">vnstat -d --limit 5 -i eth0</span></div>
+<div class="output"><span class="header-line">         rx       tx      total</span>
+   01/15   <span class="val">2.1 GiB</span>  <span class="val">0.4 GiB</span>  <span class="val">2.5 GiB</span>
+   01/14   <span class="val">3.8 GiB</span>  <span class="val">0.7 GiB</span>  <span class="val">4.5 GiB</span>
+   01/13   <span class="val">1.9 GiB</span>  <span class="val">0.3 GiB</span>  <span class="val">2.2 GiB</span>
+   01/12   <span class="val">4.1 GiB</span>  <span class="val">0.9 GiB</span>  <span class="val">5.0 GiB</span>
+   01/11   <span class="val">2.5 GiB</span>  <span class="val">0.5 GiB</span>  <span class="val">3.0 GiB</span>
+</div>`
+  },
+  {
+    delay: 14500,
+    html: `<div><span class="prompt">$ </span><span class="cmd">vnstat -t -i eth0</span></div>
+<div class="output"><span class="header-line">    #      day         rx        tx       total</span>
+    1   <span class="label">12/03/24</span>   <span class="val">9.2 GiB</span>  <span class="val">3.1 GiB</span>  <span class="val">12.3 GiB</span>
+    2   <span class="label">11/28/24</span>   <span class="val">7.8 GiB</span>  <span class="val">2.4 GiB</span>  <span class="val">10.2 GiB</span>
+    3   <span class="label">11/15/24</span>   <span class="val">6.5 GiB</span>  <span class="val">2.1 GiB</span>   <span class="val">8.6 GiB</span>
+    4   <span class="label">10/22/24</span>   <span class="val">5.9 GiB</span>  <span class="val">1.8 GiB</span>   <span class="val">7.7 GiB</span>
+    5   <span class="label">10/08/24</span>   <span class="val">5.3 GiB</span>  <span class="val">1.5 GiB</span>   <span class="val">6.8 GiB</span>
+</div>`
+  }
+];
+
+let sceneIndex = 0;
+function cycleTerminal() {
+  const scene = terminalScenes[sceneIndex % terminalScenes.length];
+  setTimeout(() => {
+    terminalBody.style.opacity = '0';
+    terminalBody.style.transform = 'translateY(6px)';
+    terminalBody.style.transition = 'opacity 0.2s, transform 0.2s';
+    setTimeout(() => {
+      terminalBody.innerHTML = scene.html + '<span class="cursor-blink"></span>';
+      terminalBody.style.opacity = '1';
+      terminalBody.style.transform = 'translateY(0)';
+    }, 220);
+    sceneIndex++;
+    cycleTerminal();
+  }, scene.delay);
+}
+cycleTerminal();
+
+/* ── Scroll Reveal ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ── Keyboard shortcut ── */
+document.addEventListener('keydown', (e) => {
+  if (e.key === '/' && document.activeElement !== searchInput) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+  if (e.key === 'Escape' && document.activeElement === searchInput) {
+    searchInput.blur();
+    searchInput.value = '';
+    renderCommands();
+  }
+});
+
+/* ── Init ── */
+renderCommands();
+</script>
+</body>
+</html>
